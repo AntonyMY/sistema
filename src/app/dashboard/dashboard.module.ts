@@ -6,7 +6,7 @@ import { PrimeNGModule } from '../prime-ng/prime-ng.module';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,    
   ],
   imports: [
     CommonModule,

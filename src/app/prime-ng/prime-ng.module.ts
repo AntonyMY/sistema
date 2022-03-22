@@ -7,6 +7,9 @@ import { CalendarModule, Calendar } from 'primeng/calendar'
 import { TableModule } from 'primeng/table'
 import { DropdownModule } from 'primeng/dropdown'
 import { ToolbarModule } from 'primeng/toolbar'
+import { SidebarModule } from 'primeng/sidebar';
+import { PanelMenuModule } from 'primeng/panelmenu';
+
 
 @NgModule({
   declarations: [],  
@@ -19,6 +22,8 @@ import { ToolbarModule } from 'primeng/toolbar'
     TableModule,
     DropdownModule,
     ToolbarModule,
+    SidebarModule,
+    PanelMenuModule,
   ]
 })
 export class PrimeNGModule { 

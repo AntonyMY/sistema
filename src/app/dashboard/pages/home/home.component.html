@@ -1,7 +1,8 @@
 <p-toolbar class="barra">
     <div class="p-toolbar-group-left">        
         <button pButton pRipple type="button" icon="pi pi-bars" 
-            class="p-button-rounded p-button-text p-button-base" ></button>
+            class="p-button-rounded p-button-text p-button-base"
+            (click)="display = true" ></button>
         <span class="font-bold ml-2 text-lg" >CESLYSOFT</span>
     </div>
 
@@ -11,4 +12,12 @@
     </div>
 </p-toolbar>
 
-<p>home works!</p>
+<div class="layout-sidebar">    
+    <p-panelMenu [model]="items" class="menulat"></p-panelMenu>
+</div>
+
+<!-- <p-sidebar [(visible)]="display" [baseZIndex]="10000" position="left" >
+    Contenido    
+</p-sidebar> -->
+
+
