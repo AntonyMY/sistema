@@ -4,6 +4,10 @@ import { NotFoundComponent } from './shared/pages/not-found/not-found.component'
 
 const routes: Routes = [
   {
+    path:'home',
+    loadChildren:()=>import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  {
     path:'404',
     component:NotFoundComponent
   },
