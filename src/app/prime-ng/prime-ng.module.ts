@@ -6,6 +6,7 @@ import { PasswordModule } from 'primeng/password'
 import { CalendarModule, Calendar } from 'primeng/calendar'
 import { TableModule } from 'primeng/table'
 import { DropdownModule } from 'primeng/dropdown'
+import { ToolbarModule } from 'primeng/toolbar'
 
 @NgModule({
   declarations: [],  
@@ -17,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown'
     CalendarModule,
     TableModule,
     DropdownModule,
+    ToolbarModule,
   ]
 })
 export class PrimeNGModule { 
