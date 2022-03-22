@@ -5,3 +5,7 @@ html, body{
     background-color: var(--surface-b);
     font-family: var(--font-family);    
 }
+
+body{
+    margin: 0;
+}
