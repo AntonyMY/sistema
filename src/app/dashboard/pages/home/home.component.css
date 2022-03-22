@@ -4,5 +4,22 @@
 }
 
 .menulat ::ng-deep .p-component{
+    font-size: .80rem;
+}
+
+.menulat ::ng-deep .p-panelmenu .p-panelmenu-panel:first-child .p-panelmenu-header > a {
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;        
+}
+
+.menulat ::ng-deep .p-panelmenu .p-panelmenu-header > a{
+    padding: .75rem 1.25rem;
+}
+
+.menulat ::ng-deep .p-panelmenu > a{
+    padding: .5rem 1.25rem;
+}
+
+.menulat ::ng-deep .pi {
     font-size: .85rem;
 }
