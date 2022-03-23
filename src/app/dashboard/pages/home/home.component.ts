@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Renderer2, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -7,24 +7,40 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['home.component.css']
 })
 export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
+  public menuActiveMobile: boolean = false;
+  public menuInactiveDesktop: boolean = false;
+  public overlayMenuActive: boolean = false;
+  public topMenuActive: boolean = false;
+  public staticMenuInactive: boolean = false;
+  public topMenuLeaving: boolean = false;
+
   display: boolean = false
   items: MenuItem[] = [];
 
   menuMode = 'static'
 
-  documentClickListener: () => void;
+  menuClick: boolean = false;
+  topMenuButtonClick: boolean = false;
+  configActive: boolean = false;
+  configClick: boolean = false;
 
-  constructor() { }  
+  documentClickListener!: () => void;
+
+  constructor(public renderer: Renderer2) { }
+
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit() {
     this.items = [
       {
         label: 'Archivo',
         icon: 'pi pi-pw pi-file',
-        expanded:true,
+        expanded: true,
         items: [{
           label: 'Lineas',
-          icon: 'pi pi-fw pi-plus',          
+          icon: 'pi pi-fw pi-plus',
         },
         { label: 'Proveedores', icon: 'pi pi-fw pi-external-link' },
         { separator: true },
@@ -41,24 +57,25 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
       {
         label: 'Transacciones',
         icon: 'pi pi-fw pi-pencil',
-        expanded:true,
+        expanded: true,
         items: [
-          { label: 'Articulos', 
+          {
+            label: 'Articulos',
             icon: 'pi pi-fw pi-trash',
-            items:[
+            items: [
               {
-                label:'Compras o Ingresos',
+                label: 'Compras o Ingresos',
                 icon: 'pi pi-fw pi-trash',
               },
               {
-                label:'Salidas o Ventas',
+                label: 'Salidas o Ventas',
                 icon: 'pi pi-fw pi-trash',
               },
               {
-                label:'Proformas',
+                label: 'Proformas',
                 icon: 'pi pi-fw pi-trash',
               }
-            ] 
+            ]
           },
           { label: 'Clientes', icon: 'pi pi-fw pi-refresh' },
           { label: 'Proveedores', icon: 'pi pi-fw pi-refresh' }
@@ -67,7 +84,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
       {
         label: 'Help',
         icon: 'pi pi-fw pi-question',
-        expanded:true,
+        expanded: true,
         items: [
           {
             label: 'Contents',
@@ -96,7 +113,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
       {
         label: 'Actions',
         icon: 'pi pi-fw pi-cog',
-        expanded:true,
+        expanded: true,
         items: [
           {
             label: 'Edit',
@@ -121,59 +138,76 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   ngAfterViewInit() {
     // hides the overlay menu and top menu if outside is clicked
     this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
-        if (!this.isDesktop()) {
-            if (!this.menuClick) {
-                this.menuActiveMobile = false;
-            }
-
-            if (!this.topMenuButtonClick) {
-                this.hideTopMenu();
-            }
-        }
-        else {
-            if (!this.menuClick && this.isOverlay()) {
-                this.menuInactiveDesktop = true;
-            }
-            if (!this.menuClick){
-                this.overlayMenuActive = false;
-            }
+      console.log('click')
+      if (!this.isDesktop()) {
+        if (!this.menuClick) {
+          this.menuActiveMobile = false;
         }
 
-        if (this.configActive && !this.configClick) {
-            this.configActive = false;
+        if (!this.topMenuButtonClick) {
+          this.hideTopMenu();
         }
+      }
+      else {
+        if (!this.menuClick && this.isOverlay()) {
+          this.menuInactiveDesktop = true;
+        }
+        if (!this.menuClick) {
+          this.overlayMenuActive = false;
+        }
+      }
 
-        this.configClick = false;
-        this.menuClick = false;
-        this.topMenuButtonClick = false;
+      if (this.configActive && !this.configClick) {
+        this.configActive = false;
+      }
+
+      this.configClick = false;
+      this.menuClick = false;
+      this.topMenuButtonClick = false;
     });
+  }
+
+  hideTopMenu() {
+    this.topMenuLeaving = true;
+    setTimeout(() => {
+        this.topMenuActive = false;
+        this.topMenuLeaving = false;
+    }, 1);
 }
 
   toggleMenu(event: Event) {
     this.menuClick = true;
 
     if (this.isDesktop()) {
-        if (this.menuMode === 'overlay') {
-            if(this.menuActiveMobile === true) {
-                this.overlayMenuActive = true;
-            }
+      if (this.menuMode === 'overlay') {
+        if (this.menuActiveMobile === true) {
+          this.overlayMenuActive = true;
+        }
 
-            this.overlayMenuActive = !this.overlayMenuActive;
-            this.menuActiveMobile = false;
-        }
-        else if (this.app.menuMode === 'static') {
-            this.staticMenuInactive = !this.staticMenuInactive;
-        }
+        this.overlayMenuActive = !this.overlayMenuActive;
+        this.menuActiveMobile = false;
+      }
+      else if (this.menuMode === 'static') {
+        this.staticMenuInactive = !this.staticMenuInactive;
+      }
     }
     else {
-        this.menuActiveMobile = !this.menuActiveMobile;
-        this.topMenuActive = false;
+      this.menuActiveMobile = !this.menuActiveMobile;
+      this.topMenuActive = false;
     }
 
     event.preventDefault();
   }
 
+  isOverlay() {
+    return this.menuMode === 'overlay';
+  }
+
   isDesktop() {
     return window.innerWidth > 992;
+  }
+
+  isStatic() {
+    return this.menuMode === 'static';
   }
 }
