@@ -1,5 +1,6 @@
 import { Renderer2, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { MenuService } from '../../service/menu.service';
 
 @Component({
   selector: 'app-home',
@@ -26,14 +27,24 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
 
   documentClickListener!: () => void;
 
-  constructor(public renderer: Renderer2) { }
+  constructor( private menuService:MenuService, public renderer: Renderer2) { }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
+    if (this.documentClickListener) 
+      this.documentClickListener();  
+  }//fin-ngOnDestroy
 
   ngOnInit() {
-    this.items = [
+    /* this.menuService.listaMenus()
+      .subscribe({next:menus => {
+        this.items = menus
+      },
+      error:err=>{
+
+      }
+    }) */
+
+    /* this.items = [
       {
         label: 'Archivo',
         icon: 'pi pi-pw pi-file',
@@ -132,14 +143,15 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
           }
         ]
       }
-    ];
+    ]; */
   }
 
   ngAfterViewInit() {
     // hides the overlay menu and top menu if outside is clicked
-    this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
-      console.log('click')
+    this.documentClickListener = this.renderer.listen('body', 'click', (event) => {            
       if (!this.isDesktop()) {
+        console.log('isDesktop')
+        
         if (!this.menuClick) {
           this.menuActiveMobile = false;
         }
@@ -176,6 +188,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
 }
 
   toggleMenu(event: Event) {
+    console.log('toggle');
+    
     this.menuClick = true;
 
     if (this.isDesktop()) {

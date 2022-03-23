@@ -1,9 +1,12 @@
 <div class="layout-wrapper" [ngClass]="{'layout-overlay':isOverlay(), 
-                                        'layout-static':isStatic()}">
+                                        'layout-static':isStatic(),
+                                        'layout-overlay-sidebar-active': overlayMenuActive,
+                                        'layout-static-sidebar-inactive': staticMenuInactive,
+                                        'layout-mobile-sidebar-active':menuActiveMobile}">
     <p-toolbar class="barra layout-topbar">
         <div class="p-toolbar-group-left">
             <button pButton pRipple type="button" icon="pi pi-bars" class="p-button-rounded p-button-text p-button-base"
-                (click)="display = true"></button>
+                (click)="toggleMenu($event)"></button>
             <span class="font-bold ml-2 text-lg">CESLYSOFT</span>
         </div>
 
