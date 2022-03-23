@@ -5,5 +5,6 @@ export interface IMenu{
     ord_men:number,
     dias:number,
     icon:string,
-    path:string
+    path:string,
+    parent:string,
 }

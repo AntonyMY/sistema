@@ -1,6 +1,7 @@
 import { Renderer2, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { MenuService } from '../../service/menu.service';
+import { IMenu } from '../../interfaces/menu.interface';
+import { MenusService } from '../../service/menus.service';
 
 @Component({
   selector: 'app-home',
@@ -27,22 +28,37 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
 
   documentClickListener!: () => void;
 
-  constructor( private menuService:MenuService, public renderer: Renderer2) { }
+  constructor( private menusService:MenusService, public renderer: Renderer2) { }
 
   ngOnDestroy(): void {
     if (this.documentClickListener) 
       this.documentClickListener();  
   }//fin-ngOnDestroy
 
+  procesaMenus(menus:IMenu[]){        
+    const padres = menus.filter(menu => menu.parent)
+    
+    menus.forEach((menu, i) => {     
+      const item: {[k: string]: any} = {
+        label: menu.nom_men,
+        icon : `pi pi-pw pi-${menu.icon}`        
+      }
+
+      if (menu.parent){
+        item['items'] = []        
+      }
+    });    
+  }
+
   ngOnInit() {
-    /* this.menuService.listaMenus()
+    this.menusService.listaMenus()
       .subscribe({next:menus => {
         this.items = menus
       },
       error:err=>{
-
+        this.items = []
       }
-    }) */
+    })
 
     /* this.items = [
       {

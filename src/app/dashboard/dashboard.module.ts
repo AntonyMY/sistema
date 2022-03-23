@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './pages/home/home.component';
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import { HttpClientModule } from '@angular/common/http'
+
 import { PrimeNGModule } from '../prime-ng/prime-ng.module';
-import { MenuService } from './service/menu.service';
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { MenusService } from './service/menus.service';
+import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -11,12 +13,13 @@ import { MenuService } from './service/menu.service';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
 
     PrimeNGModule,
     DashboardRoutingModule,
   ],
   providers:[
-    MenuService,
+    MenusService,
   ]
 })
 export class DashboardModule { }

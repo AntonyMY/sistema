@@ -4,7 +4,7 @@ import { IMenu } from '../interfaces/menu.interface';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class MenuService {
+export class MenusService {
 
   private apiUrl:string = 'http://127.0.0.1:8000/api'
 
