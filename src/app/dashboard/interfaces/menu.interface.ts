@@ -7,4 +7,6 @@ export interface IMenu{
     icon:string,
     path:string,
     parent:string,
+    title:string,
+    items:IMenu[]
 }
