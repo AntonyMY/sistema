@@ -26,39 +26,42 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   topMenuButtonClick: boolean = false;
   configActive: boolean = false;
   configClick: boolean = false;
+  esPadre:boolean = false
 
   documentClickListener!: () => void;
 
-  constructor( private menusService:MenusService, public renderer: Renderer2) { }
+  constructor(private menusService: MenusService, public renderer: Renderer2) { }
 
   ngOnDestroy(): void {
     if (this.documentClickListener)
       this.documentClickListener();
   }//fin-ngOnDestroy
 
-  setItem(menu:IMenu):any{
-    const item: {[k: string]: any} = {
+  setItem(menu: IMenu): any {
+    const item: { [k: string]: any } = {
       parent: menu.parent,
       cod_men: menu.cod_men,
       label: menu.nom_men,
-      icon : menu.icon ? `pi pi-pw pi-${menu.icon}`: '',
-      expanded:['02','02-001','02-002'].includes(menu.cod_men) ? true:false,
-      visible: menu.estado==='0'?true:false,
-      title:menu.title,
+      icon: menu.icon ? `pi pi-pw pi-${menu.icon}` : '',
+      expanded: ['02', '02-001', '02-002'].includes(menu.cod_men) ? true : false,
+      visible: menu.estado === '0' ? true : false,
+      title: menu.title,
+      command: (evt:any) => this.comando(evt),
+      routerLink: menu.path ? [menu.path] :[]
     }
     if (menu.hasOwnProperty('items')) item['items'] = menu.items
     return item
   }//fin-setItem()
 
-   /**
-   * Devuelve los menus en Jerarquia
-   * @param {*} data
-   */
-   getTreeMenus(data:IMenu[]) {
+  /**
+  * Devuelve los menus en Jerarquia
+  * @param {*} data
+  */
+  getTreeMenus(data: IMenu[]) {
     let colmenus = []
-    let item_padre:IMenu|undefined = undefined
+    let item_padre: IMenu | undefined = undefined
 
-    for (let i = 0; i < data.length; i++) { //Para cada item            
+    for (let i = 0; i < data.length; i++) { //Para cada item
       const item = this.setItem(data[i])
       const codpadre = item.parent
       //item['model'] = false
@@ -77,15 +80,15 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
         continue
       }
 
-      if (!(item_padre.hasOwnProperty('items'))) item_padre.items = []      
-      item_padre.items.push(item)      
+      if (!(item_padre.hasOwnProperty('items'))) item_padre.items = []
+      item_padre.items.push(item)
     }//fin for elementos menu
     return colmenus
   }//fin-getTreeMenus()
 
-  buscaById(matriz:IMenu[], id:string):any {    
+  buscaById(matriz: IMenu[], id: string): any {
     for (let i = 0; i < matriz.length; i++) {
-      let ele = matriz[i]      
+      let ele = matriz[i]
       if (ele.cod_men === id) {
         //console.log(true)
         return ele
@@ -94,28 +97,33 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
         if (ret) return ret
       }
     }
-  }//fin-buscaById()  
+  }//fin-buscaById()
 
   ngOnInit() {
     this.menusService.listaMenus()
-      .subscribe({next:menus => {
-        const mis_menus = this.getTreeMenus(menus)
-        console.log(mis_menus);
-        this.items = mis_menus
-      },
-      error:err=>{
-        this.items = []
-      }
-    })  
+      .subscribe({
+        next: menus => {
+          const mis_menus = this.getTreeMenus(menus)
+          this.items = mis_menus
+        },
+        error: err => {
+          this.items = []
+        }
+      })
   }//fin-ngOnInit()
+
+  comando(event:any){
+    const item = event.item        
+    this.esPadre = item.hasOwnProperty('items')    
+  }
 
   ngAfterViewInit() {
     // hides the overlay menu and top menu if outside is clicked
     this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
-      if (!this.isDesktop()) {
-        console.log('isDesktop')
+      if (!this.isDesktop()) {        
+        if (this.esPadre) return
 
-        if (!this.menuClick) {
+        if (!this.menuClick) {          
           this.menuActiveMobile = false;
         }
 
@@ -145,10 +153,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   hideTopMenu() {
     this.topMenuLeaving = true;
     setTimeout(() => {
-        this.topMenuActive = false;
-        this.topMenuLeaving = false;
+      this.topMenuActive = false;
+      this.topMenuLeaving = false;
     }, 1);
-}
+  }
 
   toggleMenu(event: Event) {
     console.log('toggle');
@@ -174,7 +182,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     event.preventDefault();
-  }
+  }//fin-toggleMenu()
 
   isOverlay() {
     return this.menuMode === 'overlay';
