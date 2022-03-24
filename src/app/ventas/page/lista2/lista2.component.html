@@ -1,0 +1,130 @@
+<p-table  #dt1 [value]="ventas" 
+    [loading]="isLoading"
+    [paginator]="true" [rows]="inicialRows" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} documentos"
+    responsiveLayout="scroll"
+    [rowsPerPageOptions]="[10,15,20,25,50]"
+    styleClass="p-datatable-sm p-datatable-striped "
+    (sortFunction)="customSort($event)" [customSort]="true"
+    [globalFilterFields]="['tipodoc','fecha','num_doc_ident','cliente','mone','subtotal','exo', 'igv', 'total']"
+    selectionMode="single" [(selection)]="ventaSel" dataKey="ndoc" >
+    <ng-template pTemplate="caption">
+        <div class="table-header flex justify-content-between">
+            <div class="flex align-items-center">
+                Listado de Ventas
+            </div>
+            <div class="formgroup-inline p-inputtext-sm flex align-items-center">
+                <div class="pr-2 fechas">
+                    <label for="fechaIni" class="text-xs pr-2" >Fecha Inicial:</label>
+                    <p-calendar id="fechaIni"                        
+                        [(ngModel)]="fechaIni"></p-calendar>
+                </div>
+                <div class="mr-2 fechas">
+                    <label for="fechaFin" class="text-xs pr-2" >Fecha Final:</label>
+                    <p-calendar
+                        [(ngModel)]="fechaFin" id="fechaFin" 
+                        ></p-calendar>
+                </div>
+                <p-button label="Buscar"
+                    icon="pi pi-search" styleClass="p-button-sm"
+                    [loading]="isLoading" (onClick)="buscar()"></p-button>
+            </div>
+        </div>
+        <div class="flex mt-1" >
+            <button pButton label="Limpiar" class="p-button-outlined p-button-sm" 
+                icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                
+            <!-- <p-dropdown [options]="headers" optionLabel="header" 
+                optionValue="field" class="ml-auto p-inputtext-sm mr-2" >
+                <ng-template let-item pTemplate="item">
+                    {{item.value}}
+                </ng-template>
+            </p-dropdown> -->
+            <span class="p-input-icon-left w-full ml-2">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" 
+                    [(ngModel)]="txBus" class="p-inputtext-sm w-full"
+                    (input)="filtro()" placeholder="Buscar" />
+            </span>
+        </div>
+    </ng-template>
+    <!--*****************CABECERA*************************-->
+    <ng-template pTemplate="header">
+        <tr class="text-xs">
+            <th rowspan="2" pSortableColumn="estado" class="text-center">E</th>
+            <th colspan="2" class="text-center border-bottom-3 border-blue-100">Documento</th>
+            <th rowspan="2" class="w-5rem" style="vertical-align: bottom;" pSortableColumn="fecha">
+                Fecha <br> Emision <p-sortIcon field="fecha"></p-sortIcon>                
+            </th>
+            <th colspan="2" class="text-center border-bottom-3 border-blue-100">Cliente</th>
+            <th rowspan="2" pSortableColumn="mone" class="text-center w-1rem" style="vertical-align: bottom;">
+                M<br><!-- <p-sortIcon field="mone"></p-sortIcon> --></th>
+            <th colspan="4" class="text-center border-bottom-3 border-blue-100">Montos</th>
+        </tr>
+        <!-- ----------------------2 Fila--------------------------------- -->
+        <tr class="text-xs">            
+            <th pSortableColumn="tipodoc" 
+                class="w-1rem">Tipo<!-- <p-sortIcon field="tipodoc"></p-sortIcon> --></th>
+            <th pSortableColumn="serdoc"  
+                class="w-7rem" >Serie/Núm<p-sortIcon field="serdoc"></p-sortIcon></th>            
+            <th pSortableColumn="num_doc_ident"
+                class="w-6rem" >Doc.Ident.<!-- <p-sortIcon field="num_doc_ident"></p-sortIcon> --></th>
+            <th pSortableColumn="cliente">Razon Social<p-sortIcon field="cliente"></p-sortIcon></th>
+            <!-- <th pSortableColumn="mone">M<p-sortIcon field="mone"></p-sortIcon></th> -->
+            <th pSortableColumn="subtotal">Gravado<p-sortIcon field="subtotal"></p-sortIcon></th> <!-- Monto -->
+            <th pSortableColumn="exo">Exonerado<p-sortIcon field="exo"></p-sortIcon></th>
+            <th pSortableColumn="igv">IGV<p-sortIcon field="igv"></p-sortIcon></th>
+            <th pSortableColumn="total">Total<p-sortIcon field="total"></p-sortIcon></th>            
+        </tr>
+        <!-- ----------------------2 FILTRO--------------------------------- -->        
+    </ng-template>
+    <!-------***********DETALLE*************************-->
+    <ng-template pTemplate="body" let-venta>
+        <tr class="text-xs font-medium" [pSelectableRow]="venta">
+            <!-- <td class="text-right" >{{ venta.estado }}</td> -->
+            <td class="text-center">                
+                {{ venta.selected==false ? 'true':'false' }}
+                <i class="pi" 
+                    [ngClass]="{'text-teal-400 pi-check-circle': venta.estado==='1', 'text-pink-500 pi-times-circle': venta.estado!=='1'}"></i>
+            </td>
+            <td class="text-center w-1rem" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}"
+                >{{ venta.tipodoc }}</td>
+            <!-- <td>{{ venta.nser }} - {{ venta.ndoc }}</td> -->
+            <td class="text-center w-7rem" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ getSerDoc(venta) }}</td>
+            <td class="text-right w-5rem"  [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ venta.fecha|date:'dd-MM-yyyy'  }}</td>
+            <td class="text-right w-6rem" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ venta.num_doc_ident }}</td>
+            <td [ngClass]="{'line-through text-pink-400': venta.estado!=='1'}">{{ venta.cliente }}</td>
+            <td class="text-center w-1rem" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ venta.mone }}</td>
+            <td class="text-right" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ venta.subtotal |number:'1.2-2' }}</td>
+            <td class="text-right" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ venta.exo |number:'1.2-2' }}</td>
+            <td class="text-right" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ venta.igv |number:'1.2-2' }}</td>
+            <td class="text-right" [ngClass]="{'line-through text-pink-500': venta.estado!=='1'}">{{ venta.total |number:'1.2-2' }}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer"> 
+        <tr class="text-xs font-bold">
+            <td colspan="6" class="text-right">Total:</td>
+            <td class="text-right">100.00</td>
+            <td class="text-right">2,100.00</td>
+            <td class="text-right">230.00</td>
+            <td class="text-right">5,330.00</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        Total de Documentos: {{ ventas.length }}
+    </ng-template>
+</p-table>
+
+
+
+<!-- <div class="grid p-inputtext-sm">
+
+    <label for="fechaIni" class="col-1" >Fecha Inicial:</label>
+    <p-calendar id="fechaIni" class="xl:col-2"
+        [(ngModel)]="fechaIni"></p-calendar>
+
+    <label for="fechaFin" class="col-1" >Fecha Final:</label>
+    <p-calendar class="xl:col-2"
+        [(ngModel)]="fechaFin" id="fechaFin"></p-calendar>
+
+</div> -->
