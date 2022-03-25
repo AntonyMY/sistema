@@ -4,9 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 
 import { PrimeNGModule } from '../prime-ng/prime-ng.module';
+import { VentasRoutingModule } from './ventas-routing.module';
 import { VentaListaComponent } from './page/lista/venta-lista.component';
 import { VentasService } from './services/ventas.service';
 import { Lista2Component } from './page/lista2/lista2.component';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { Lista2Component } from './page/lista2/lista2.component';
     HttpClientModule,
 
     PrimeNGModule,    
+    VentasRoutingModule
   ],
   providers:[
     VentasService,
