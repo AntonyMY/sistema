@@ -1,0 +1,19 @@
+.fechas ::ng-deep .p-datepicker table{    
+    font-size: .80rem;
+}
+
+.fechas ::ng-deep .p-datepicker table td > span{    
+    width: 1.9rem;
+}
+
+.fechas ::ng-deep .p-datepicker table td{    
+    padding:.1rem
+}
+
+.fechas ::ng-deep .p-datepicker .p-link{    
+   font-size: .85rem;   
+}
+
+.fechas ::ng-deep .p-datepicker .pi{    
+   font-size: .85rem;   
+}

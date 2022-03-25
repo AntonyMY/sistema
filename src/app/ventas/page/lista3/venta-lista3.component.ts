@@ -7,11 +7,11 @@ import { VentasService } from '../../services/ventas.service';
 import { Subject, debounceTime } from 'rxjs';
 
 @Component({
-  selector: 'app-lista2',
-  templateUrl: './lista2.component.html',
-  styleUrls: ['./lista2.component.css']
+  selector: 'app-venta-lista3',
+  templateUrl: './venta-lista3.component.html',
+  styleUrls: ['./venta-lista3.component.css']
 })
-export class Lista2Component implements OnInit {
+export class VentaLista3Component implements OnInit {
   @ViewChild('dt1') tabla!:Table
 
   ventas: IVenta[] = []

@@ -13,22 +13,34 @@
             <div class="flex align-items-center">
                 Listado de Ventas
             </div>
-            <div class="formgroup-inline p-inputtext-sm flex align-items-center">
-                <div class="pr-2 fechas">
-                    <label for="fechaIni" class="text-xs pr-2" >Fecha Inicial:</label>
-                    <p-calendar id="fechaIni"                        
-                        [(ngModel)]="fechaIni"></p-calendar>
+
+
+            <p-sidebar [(visible)]="showFilter" position="right" [showCloseIcon]="false" >
+                <div class="formgroup-inline p-inputtext-sm flex align-items-center">
+                    <div class="pr-2 fechas">
+                        <label for="fechaIni" class="text-xs pr-2" >Fecha Inicial:</label>
+                        <p-calendar id="fechaIni"                        
+                            [(ngModel)]="fechaIni"></p-calendar>
+                    </div>
+                    <div class="mr-2 fechas">
+                        <label for="fechaFin" class="text-xs pr-2" >Fecha Final:</label>
+                        <p-calendar
+                            [(ngModel)]="fechaFin" id="fechaFin" 
+                            ></p-calendar>
+                    </div>
+                    <p-button label="Buscar"
+                        icon="pi pi-search" styleClass="p-button-sm"
+                        [loading]="isLoading" (onClick)="buscar()"></p-button>
+                    
+                    
+                    <!-- <p-button label="Buscar"
+                        icon="pi pi-search" styleClass="p-button-sm"
+                        [loading]="isLoading" (onClick)="buscar()"></p-button> -->
                 </div>
-                <div class="mr-2 fechas">
-                    <label for="fechaFin" class="text-xs pr-2" >Fecha Final:</label>
-                    <p-calendar
-                        [(ngModel)]="fechaFin" id="fechaFin" 
-                        ></p-calendar>
-                </div>
-                <p-button label="Buscar"
-                    icon="pi pi-search" styleClass="p-button-sm"
-                    [loading]="isLoading" (onClick)="buscar()"></p-button>
-            </div>
+            </p-sidebar>
+            
+            <button pButton pRipple type="button" icon="pi pi-filter-fill" 
+                    class="p-button-rounded ml-2" (click)="showFilter = true"></button>    
         </div>
         <div class="flex mt-1" >
             <button pButton label="Limpiar" class="p-button-outlined p-button-sm" 
@@ -83,7 +95,7 @@
         <tr class="text-xs font-medium" [pSelectableRow]="venta">
             <!-- <td class="text-right" >{{ venta.estado }}</td> -->
             <td class="text-center">                
-                {{ venta.selected==false ? 'true':'false' }}
+                <!-- {{ venta.selected==false ? 'true':'false' }} -->
                 <i class="pi" 
                     [ngClass]="{'text-teal-400 pi-check-circle': venta.estado==='1', 'text-pink-500 pi-times-circle': venta.estado!=='1'}"></i>
             </td>

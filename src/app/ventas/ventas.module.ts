@@ -5,15 +5,15 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { PrimeNGModule } from '../prime-ng/prime-ng.module';
 import { VentasRoutingModule } from './ventas-routing.module';
-import { VentaListaComponent } from './page/lista/venta-lista.component';
+import { VentaLista3Component } from './page/lista3/venta-lista3.component';
 import { VentasService } from './services/ventas.service';
-import { Lista2Component } from './page/lista2/lista2.component';
+import { VentaListaComponent } from './page/lista/venta-lista.component';
 
 
 @NgModule({
   declarations: [
-    VentaListaComponent,
-    Lista2Component,    
+    VentaLista3Component,
+    VentaListaComponent,    
   ],
   imports: [
     CommonModule,

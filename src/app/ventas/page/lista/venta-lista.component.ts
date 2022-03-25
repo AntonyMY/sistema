@@ -7,7 +7,7 @@ import { VentasService } from '../../services/ventas.service';
 import { Subject, debounceTime } from 'rxjs';
 
 @Component({
-  selector: 'app-venta-lista',
+  selector: 'app-lista2',
   templateUrl: './venta-lista.component.html',
   styleUrls: ['./venta-lista.component.css']
 })
@@ -20,12 +20,15 @@ export class VentaListaComponent implements OnInit {
   fechaIni: Date = new Date()
   fechaFin: Date = new Date()
 
+  showFilter = false
   isLoading: boolean = false
   error: boolean = false
 
   inicialRows = 15
   txBus = ''
   debouncer: Subject<string> = new Subject()
+
+
   
 
   headers:IHeader[]=[
