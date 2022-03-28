@@ -19,10 +19,7 @@ export class LineasComponent implements OnInit {
   title:string='Listado de Lineas'
 
   lineas: ILinea[] = []
-  ventaSel!:ILinea
-
-  fechaIni: Date = new Date()
-  fechaFin: Date = new Date()
+  ventaSel!:ILinea 
 
   showFilter = false
   isLoading: boolean = false
@@ -76,7 +73,7 @@ export class LineasComponent implements OnInit {
           //console.info(error.status)
         }
       })
-      
+
     /* this.debouncer
       .pipe(debounceTime(500))
       .subscribe(valor => {

@@ -1,5 +1,4 @@
-<!-- <div class="p-inputtext-sm flex align-items-center bg-green-100 h-6rem"> -->
-    <p-sidebar [(visible)]="showFilter" position="right" [showCloseIcon]="false" 
+<!-- <p-sidebar [(visible)]="showFilter" position="right" [showCloseIcon]="false" 
     #filtroBar class="fechas" styleClass="p-0" >    
     <p-panel>
         <ng-template pTemplate="header">
@@ -15,7 +14,7 @@
             </div>            
         </ng-template>
     </p-panel>  
-</p-sidebar>
+</p-sidebar> -->
 
 <p-table  #tabla [value]="lineas" class="tablita"
     [loading]="isLoading"
@@ -25,8 +24,8 @@
     [rowsPerPageOptions]="[10,15,20,25,50]"
     styleClass="p-datatable-sm p-datatable-striped "
     (sortFunction)="customSort($event)" [customSort]="true"
-    [globalFilterFields]="['tipodoc','fecha','num_doc_ident','cliente','mone','subtotal','exo', 'igv', 'total']"
-    selectionMode="single" [(selection)]="ventaSel" dataKey="ndoc" >
+    [globalFilterFields]="['codlinea','nomb']"
+    selectionMode="single" [(selection)]="ventaSel" dataKey="codlinea" >
     <ng-template pTemplate="caption">
         <div class="table-header flex justify-content-between">
             <div class="flex align-items-center">
