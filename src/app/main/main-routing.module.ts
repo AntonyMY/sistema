@@ -11,7 +11,11 @@ const routes:Routes=[
         path:'',
         loadChildren:()=>import('../ventas/ventas.module').then(m => m.VentasModule)
       },
-    ]    
+      {
+        path:'',
+        loadChildren:()=>import('../mantenimiento/mantenimiento.module').then(m => m.MantenimientoModule)
+      },  
+    ]        
   },
 ]
 

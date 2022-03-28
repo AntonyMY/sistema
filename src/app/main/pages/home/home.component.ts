@@ -10,9 +10,9 @@ import { MenusService } from '../../service/menus.service';
   styleUrls: ['home.component.css']
 })
 export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
-  public menuActiveMobile: boolean = false;
+  public menuActiveMobile: boolean = false; //false
   public menuInactiveDesktop: boolean = false;
-  public overlayMenuActive: boolean = false;
+  public overlayMenuActive: boolean = false; //false
   public topMenuActive: boolean = false;
   public staticMenuInactive: boolean = false;
   public topMenuLeaving: boolean = false;
@@ -20,10 +20,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   display: boolean = false
   items: MenuItem[] = [];
 
-  menuMode = 'static'
+  menuMode = 'overlay'
 
-  menuClick: boolean = false;
-  topMenuButtonClick: boolean = false;
+  menuClick: boolean = false; //false
+  topMenuButtonClick: boolean = false; //false
   configActive: boolean = false;
   configClick: boolean = false;
   esPadre:boolean = false
@@ -120,8 +120,8 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
   ngAfterViewInit() {
     // hides the overlay menu and top menu if outside is clicked
     this.documentClickListener = this.renderer.listen('body', 'click', (event) => {
+      if (this.esPadre) return
       if (!this.isDesktop()) {        
-        if (this.esPadre) return
 
         if (!this.menuClick) {          
           this.menuActiveMobile = false;
@@ -158,8 +158,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy, OnInit {
     }, 1);
   }
 
-  toggleMenu(event: Event) {
-    console.log('toggle');
+  toggleMenu(event: Event) {    
 
     this.menuClick = true;
 

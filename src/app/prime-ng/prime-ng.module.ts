@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown'
 import { ToolbarModule } from 'primeng/toolbar'
 import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelModule } from 'primeng/panel';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     ToolbarModule,
     SidebarModule,
     PanelMenuModule,
+    PanelModule,
   ]
 })
 export class PrimeNGModule { 

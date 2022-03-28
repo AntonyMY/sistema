@@ -59,7 +59,7 @@ body{
 }
 
 .layout-main {
-    flex: 1 1 auto;
+    /* flex: 1 1 auto; */
 }
 
 .layout-topbar {
@@ -75,8 +75,8 @@ body{
     .layout-wrapper.layout-overlay .layout-sidebar {
         transform: translateX(-100%);
         left: 0;
-        top: 0;
-        height: 100vh;
+        top: 3.0rem;
+        height: 100%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
    }
@@ -107,8 +107,8 @@ body{
     .layout-wrapper .layout-sidebar {
         transform: translateX(-100%);
         left: 0;
-        top: 0;
-        height: 100vh;
+        top: 1.5rem;
+        height: 100%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
    }

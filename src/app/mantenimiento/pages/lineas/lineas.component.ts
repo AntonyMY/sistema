@@ -1,33 +1,36 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import Decimal from 'decimal.js';
-import { SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { IHeader, ITipo } from '../../../mantenimiento/interfaces/otras.interface';
-import { VentasService } from '../../services/ventas.service';
+import { ILinea } from '../../interfaces/linea.interface';
 import { Subject, debounceTime } from 'rxjs';
-import { IVenta } from '../../interfaces/venta.interface';
+import { IHeader, ITipo } from '../../interfaces/otras.interface';
+import Decimal from 'decimal.js';
+import { MantenimientoService } from '../../services/mantenimiento.service';
+import { SortEvent } from 'primeng/api';
 
 @Component({
-  selector: 'app-venta-lista3',
-  templateUrl: './venta-lista3.component.html',
-  styleUrls: ['./venta-lista3.component.css']
+  selector: 'app-lineas',
+  templateUrl: './lineas.component.html',  
+  styleUrls:['./lineas.component.css']
 })
-export class VentaLista3Component implements OnInit {
-  @ViewChild('dt1') tabla!:Table
+export class LineasComponent implements OnInit {
 
-  ventas: IVenta[] = []
-  ventaSel!:IVenta
+  @ViewChild('tabla') tabla!:Table
+
+  title:string='Listado de Lineas'
+
+  lineas: ILinea[] = []
+  ventaSel!:ILinea
 
   fechaIni: Date = new Date()
   fechaFin: Date = new Date()
 
+  showFilter = false
   isLoading: boolean = false
   error: boolean = false
 
   inicialRows = 15
   txBus = ''
-  debouncer: Subject<string> = new Subject()
-  
+  debouncer: Subject<string> = new Subject() 
 
   headers:IHeader[]=[
     {
@@ -52,19 +55,34 @@ export class VentaLista3Component implements OnInit {
     }
   ]
 
-  getSerDoc(vta: IVenta): string {
-    return vta.nser + ' - ' + vta['ndoc'];
+  getSerDoc(vta: ILinea): string {
+    return  ' - ';
   }
 
-  constructor(private ventasService: VentasService) { }
+  constructor(private mantenimientoService: MantenimientoService) { }
 
   ngOnInit(): void {
-    this.debouncer
+    this.error = false
+    this.isLoading = true
+    this.mantenimientoService.listaLineas()
+      .subscribe({next:lineas => {
+          this.lineas = lineas
+          this.isLoading = false   
+          this.showFilter = false
+        },
+        error:err=>{
+          this.error = true
+          this.isLoading = false          
+          //console.info(error.status)
+        }
+      })
+      
+    /* this.debouncer
       .pipe(debounceTime(500))
       .subscribe(valor => {
           console.log('**',valor);          
           this.tabla.filterGlobal(valor, 'contains')}
-      )
+      ) */
   }
 
   customSort(event: SortEvent) {
@@ -102,17 +120,14 @@ export class VentaLista3Component implements OnInit {
     });
   }
 
-  buscar() {
-    if (!this.fechaIni || !this.fechaFin){
-      alert('ingrese fechas validas!')
-      return
-    }
+  buscar() {    
     this.error = false
     this.isLoading = true
-    this.ventasService.listaVentas(this.fechaIni, this.fechaFin)
-      .subscribe({next:vtas => {
-          this.ventas = vtas
-          this.isLoading = false          
+    this.mantenimientoService.listaLineas()
+      .subscribe({next:lineas => {
+          this.lineas = lineas
+          this.isLoading = false   
+          this.showFilter = false
         },
         error:err=>{
           this.error = true

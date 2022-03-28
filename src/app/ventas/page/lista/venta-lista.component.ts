@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import Decimal from 'decimal.js';
 import { SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
-import { IHeader, ITipo, IVenta } from '../../interfaces/venta.interface';
+import { IHeader, ITipo } from '../../../mantenimiento/interfaces/otras.interface';
 import { VentasService } from '../../services/ventas.service';
 import { Subject, debounceTime } from 'rxjs';
+import { IVenta } from '../../interfaces/venta.interface';
 
 @Component({
   selector: 'app-lista2',
@@ -114,7 +115,8 @@ export class VentaListaComponent implements OnInit {
     this.ventasService.listaVentas(this.fechaIni, this.fechaFin)
       .subscribe({next:vtas => {
           this.ventas = vtas
-          this.isLoading = false          
+          this.isLoading = false   
+          this.showFilter = false
         },
         error:err=>{
           this.error = true

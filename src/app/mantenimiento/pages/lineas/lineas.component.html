@@ -1,0 +1,86 @@
+<!-- <div class="p-inputtext-sm flex align-items-center bg-green-100 h-6rem"> -->
+    <p-sidebar [(visible)]="showFilter" position="right" [showCloseIcon]="false" 
+    #filtroBar class="fechas" styleClass="p-0" >    
+    <p-panel>
+        <ng-template pTemplate="header">
+            <span class="font-semibold text-lg">Filtros</span>
+        </ng-template>
+        
+
+        <ng-template pTemplate="footer">
+            <div>
+                <p-button label="BUSCAR" 
+                    icon="pi pi-search" styleClass=" mt-3 w-full font-bold"
+                    [loading]="isLoading" (onClick)="buscar()"></p-button>       
+            </div>            
+        </ng-template>
+    </p-panel>  
+</p-sidebar>
+
+<p-table  #tabla [value]="lineas" class="tablita"
+    [loading]="isLoading"
+    [paginator]="true" [rows]="inicialRows" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} documentos"
+    responsiveLayout="scroll"
+    [rowsPerPageOptions]="[10,15,20,25,50]"
+    styleClass="p-datatable-sm p-datatable-striped "
+    (sortFunction)="customSort($event)" [customSort]="true"
+    [globalFilterFields]="['tipodoc','fecha','num_doc_ident','cliente','mone','subtotal','exo', 'igv', 'total']"
+    selectionMode="single" [(selection)]="ventaSel" dataKey="ndoc" >
+    <ng-template pTemplate="caption">
+        <div class="table-header flex justify-content-between">
+            <div class="flex align-items-center">
+                {{title}}
+            </div>
+            <!--**************Barra Lateral************-->           
+
+            <button pButton pRipple type="button" icon="pi pi-filter-fill"
+                    class="p-button-rounded ml-2" (click)="showFilter = true"></button>
+        </div>
+        <div class="flex mt-1" >
+            <button pButton label="Limpiar" class="p-button-outlined p-button-sm"
+                icon="pi pi-filter-slash" (click)="clear(tabla)"></button>
+
+            <!-- <p-dropdown [options]="headers" optionLabel="header"
+                optionValue="field" class="ml-auto p-inputtext-sm mr-2" >
+                <ng-template let-item pTemplate="item">
+                    {{item.value}}
+                </ng-template>
+            </p-dropdown> -->
+            <span class="p-input-icon-left w-full ml-2">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text"
+                    [(ngModel)]="txBus" class="p-inputtext-sm w-full"
+                    (input)="filtro()" placeholder="Buscar" />
+            </span>
+        </div>
+    </ng-template>
+    <!--*****************CABECERA*************************-->
+    <ng-template pTemplate="header">       
+        <!-- ----------------------2 Fila--------------------------------- -->
+        <tr class="text-xs">
+            <th pSortableColumn="codlinea"
+                class="w-5rem">Codigo<p-sortIcon field="codlinea"></p-sortIcon></th>
+            <th pSortableColumn="nomb"
+                 >Descripción<p-sortIcon field="nomb"></p-sortIcon></th>            
+        </tr>
+        <!-- ----------------------2 FILTRO--------------------------------- -->
+    </ng-template>
+    <!-------***********DETALLE*************************-->
+    <ng-template pTemplate="body" let-linea>
+        <tr class="text-xs font-medium" [pSelectableRow]="linea">            
+            <td class="text-center w-5rem" >{{ linea.codlinea }}</td>
+            <td class="">                
+                {{ linea.nomb }}
+            </td>            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <tr class="text-xs font-bold">
+            <td class="text-right">Total:</td>            
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        Total de Documentos: {{ lineas.length }}
+    </ng-template>
+</p-table>
