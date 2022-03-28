@@ -1,3 +1,4 @@
+<!--**************Barra Lateral************-->           
 <!-- <p-sidebar [(visible)]="showFilter" position="right" [showCloseIcon]="false" 
     #filtroBar class="fechas" styleClass="p-0" >    
     <p-panel>
@@ -15,37 +16,32 @@
         </ng-template>
     </p-panel>  
 </p-sidebar> -->
-
-<p-table  #tabla [value]="lineas" class="tablita"
-    [loading]="isLoading"
-    [paginator]="true" [rows]="inicialRows" [showCurrentPageReport]="true"
+<!-- [paginator]="true" [rows]="inicialRows" [showCurrentPageReport]="true"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} documentos"
-    responsiveLayout="scroll"
-    [rowsPerPageOptions]="[10,15,20,25,50]"
+    responsiveLayout="stack"
+    [rowsPerPageOptions]="[10,15,20,25,50]" 
+
+    selectionMode="single" [(selection)]="ventaSel" dataKey="codlinea"
+-->
+<p-table  #tabla [value]="lineas" [loading]="isLoading" class="tablita"    
+    
     styleClass="p-datatable-sm p-datatable-striped "
     (sortFunction)="customSort($event)" [customSort]="true"
     [globalFilterFields]="['codlinea','nomb']"
-    selectionMode="single" [(selection)]="ventaSel" dataKey="codlinea" >
+     >
     <ng-template pTemplate="caption">
         <div class="table-header flex justify-content-between">
             <div class="flex align-items-center">
                 {{title}}
             </div>
-            <!--**************Barra Lateral************-->           
-
+            
             <button pButton pRipple type="button" icon="pi pi-filter-fill"
                     class="p-button-rounded ml-2" (click)="showFilter = true"></button>
         </div>
         <div class="flex mt-1" >
             <button pButton label="Limpiar" class="p-button-outlined p-button-sm"
                 icon="pi pi-filter-slash" (click)="clear(tabla)"></button>
-
-            <!-- <p-dropdown [options]="headers" optionLabel="header"
-                optionValue="field" class="ml-auto p-inputtext-sm mr-2" >
-                <ng-template let-item pTemplate="item">
-                    {{item.value}}
-                </ng-template>
-            </p-dropdown> -->
+            
             <span class="p-input-icon-left w-full ml-2">
                 <i class="pi pi-search"></i>
                 <input pInputText type="text"
@@ -60,7 +56,7 @@
         <tr class="text-xs">
             <th pSortableColumn="codlinea"
                 class="w-5rem">Codigo<p-sortIcon field="codlinea"></p-sortIcon></th>
-            <th pSortableColumn="nomb"
+            <th pSortableColumn="nomb" class=""
                  >Descripción<p-sortIcon field="nomb"></p-sortIcon></th>            
         </tr>
         <!-- ----------------------2 FILTRO--------------------------------- -->
@@ -68,8 +64,8 @@
     <!-------***********DETALLE*************************-->
     <ng-template pTemplate="body" let-linea>
         <tr class="text-xs font-medium" [pSelectableRow]="linea">            
-            <td class="text-center w-5rem" >{{ linea.codlinea }}</td>
-            <td class="">                
+            <td class="text-center w-5rem" ><span class="p-column-title">Codigo:</span>{{ linea.codlinea }}</td>
+            <td class=""><span class="p-column-title">Descripcion:</span>                
                 {{ linea.nomb }}
             </td>            
         </tr>

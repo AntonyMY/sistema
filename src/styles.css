@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeflex/primeflex.css";
+@import "primeflex/primeflex.css"; 
 
 :root {
     --transition-duration: .2s;
@@ -54,7 +54,7 @@ body{
     flex-direction: column;
     min-height: 100vh;
     justify-content: space-between;
-    padding: 3rem 2rem 2rem 2rem;
+    padding: 3rem 0rem 1rem 6rem;
     transition: margin-left .2s;    
 }
 
@@ -70,7 +70,7 @@ body{
 @media (min-width: 992px) {
     .layout-wrapper.layout-overlay .layout-main-container {
         margin-left: 0;
-        padding-left: 2rem;
+        padding-left: 0rem;
    }
     .layout-wrapper.layout-overlay .layout-sidebar {
         transform: translateX(-100%);
@@ -102,12 +102,12 @@ body{
 @media (max-width: 991px) {
     .layout-wrapper .layout-main-container {
         margin-left: 0;
-        padding-left: 2rem;
+        padding-left: 0rem;
    }
     .layout-wrapper .layout-sidebar {
         transform: translateX(-100%);
         left: 0;
-        top: 1.5rem;
+        top: 2.8rem;
         height: 100%;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;

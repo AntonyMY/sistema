@@ -66,6 +66,7 @@ export class LineasComponent implements OnInit {
           this.lineas = lineas
           this.isLoading = false   
           this.showFilter = false
+          this.tabla.breakpoint="765"
         },
         error:err=>{
           this.error = true
@@ -73,14 +74,14 @@ export class LineasComponent implements OnInit {
           //console.info(error.status)
         }
       })
-
-    /* this.debouncer
+    //Busquedas
+    this.debouncer
       .pipe(debounceTime(500))
       .subscribe(valor => {
           console.log('**',valor);          
           this.tabla.filterGlobal(valor, 'contains')}
-      ) */
-  }
+      )      
+  }//fin-ngOnInit()
 
   customSort(event: SortEvent) {
     event?.data?.sort((data1:any, data2:any) => {      

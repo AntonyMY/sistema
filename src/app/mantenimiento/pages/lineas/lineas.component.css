@@ -26,10 +26,6 @@
     width: 100%;
 }
 
-.tablita ::ng-deep .p-datatable .p-paginator-bottom{    
-    font-size: .85rem;
-}
-
 .fechas ::ng-deep .p-sidebar .p-sidebar-header{
     padding: 0;
 }
@@ -41,4 +37,16 @@
 .fechas ::ng-deep .p-panel .p-panel-header{
     background-color: var(--primary-color);
     color: var(--primary-color-text);    
+}
+
+.tablita ::ng-deep .p-datatable .p-paginator-bottom{    
+    font-size: .85rem;
+}
+
+.tablita ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even){
+    background-color: var(--blue-50);
+}
+
+.tablita ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even).p-highlight{
+    background-color: var(--primary-color);
 }
