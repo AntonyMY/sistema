@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'
 import { ArticulosComponent } from './pages/articulos/articulos.component';
-import { LineasComponent } from './pages/lineas/lineas.component';
+import { ListadoLineasComponent } from './pages/lineas/listado-lineas.component';
 
 const routes:Routes=[
   {    
     path:'lineas',        
-    component:LineasComponent,    
+    component:ListadoLineasComponent,    
   },
   {    
     path:'articulos',        

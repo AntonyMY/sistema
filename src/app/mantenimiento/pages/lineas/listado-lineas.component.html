@@ -23,20 +23,25 @@
 
     selectionMode="single" [(selection)]="ventaSel" dataKey="codlinea"
 -->
+<div class="card">
+<div style="position: relative;" class="speeddial-linear-demo">
+    <p-speedDial className="p-button-sm" [radius]="120" 
+        direction="up-left" type="quarter-circle" [rotateAnimation]="false">        
+    </p-speedDial>
+        
 <p-table  #tabla [value]="lineas" [loading]="isLoading" class="tablita"    
     
     styleClass="p-datatable-sm p-datatable-striped "
     (sortFunction)="customSort($event)" [customSort]="true"
     [globalFilterFields]="['codlinea','nomb']"
-     >
+     >     
     <ng-template pTemplate="caption">
         <div class="table-header flex justify-content-between">
             <div class="flex align-items-center">
                 {{title}}
-            </div>
-            
-            <button pButton pRipple type="button" icon="pi pi-filter-fill"
-                    class="p-button-rounded ml-2" (click)="showFilter = true"></button>
+            </div>            
+            <!-- <button pButton pRipple type="button" icon="pi pi-filter-fill"
+                    class="p-button-rounded ml-2" (click)="showFilter = true"></button> -->
         </div>
         <div class="flex mt-1" >
             <button pButton label="Limpiar" class="p-button-outlined p-button-sm"
@@ -79,3 +84,5 @@
         Total de Documentos: {{ lineas.length }}
     </ng-template>
 </p-table>
+</div>
+</div>

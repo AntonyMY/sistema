@@ -50,3 +50,14 @@
 .tablita ::ng-deep .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even).p-highlight{
     background-color: var(--primary-color);
 }
+
+:host ::ng-deep .speeddial-linear-demo .p-speeddial-quarter-circle.p-speeddial-direction-up-left {
+    right: 1.5rem;
+    bottom: 1.5rem;
+}
+
+:host ::ng-deep .p-speeddial-button.p-button.p-button-icon-only{
+    width: 3.2rem;
+    height: 3.2rem;
+}
+

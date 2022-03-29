@@ -5,19 +5,20 @@ import { Subject, debounceTime } from 'rxjs';
 import { IHeader, ITipo } from '../../interfaces/otras.interface';
 import Decimal from 'decimal.js';
 import { MantenimientoService } from '../../services/mantenimiento.service';
-import { SortEvent } from 'primeng/api';
+import { MenuItem, MessageService, SortEvent } from 'primeng/api';
 
 @Component({
-  selector: 'app-lineas',
-  templateUrl: './lineas.component.html',  
-  styleUrls:['./lineas.component.css']
+  selector: 'app-listado-lineas',
+  templateUrl: './listado-lineas.component.html',  
+  styleUrls:['./listado-lineas.component.css']
 })
-export class LineasComponent implements OnInit {
+export class ListadoLineasComponent implements OnInit {
 
   @ViewChild('tabla') tabla!:Table
 
   title:string='Listado de Lineas'
 
+  items: MenuItem[]=[];
   lineas: ILinea[] = []
   ventaSel!:ILinea 
 
@@ -56,9 +57,39 @@ export class LineasComponent implements OnInit {
     return  ' - ';
   }
 
-  constructor(private mantenimientoService: MantenimientoService) { }
+  constructor(private mantenimientoService: MantenimientoService, 
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
+    this.items = [
+      {
+          icon: 'pi pi-pencil',
+          command: () => {
+              this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
+          }
+      },
+      {
+          icon: 'pi pi-refresh',
+          command: () => {
+              this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
+          }
+      },
+      {
+          icon: 'pi pi-trash',
+          command: () => {
+              this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+          }
+      },
+      {
+          icon: 'pi pi-upload',
+      },
+      {
+          icon: 'pi pi-external-link',
+          url: 'http://angular.io'
+
+      }
+  ];
+    
     this.error = false
     this.isLoading = true
     this.mantenimientoService.listaLineas()
