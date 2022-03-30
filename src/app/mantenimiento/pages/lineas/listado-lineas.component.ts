@@ -12,15 +12,14 @@ import { MenuItem, MessageService, SortEvent } from 'primeng/api';
   templateUrl: './listado-lineas.component.html',  
   styleUrls:['./listado-lineas.component.css']
 })
-export class ListadoLineasComponent implements OnInit {
-
+export class ListadoLineasComponent implements OnInit {  
   @ViewChild('tabla') tabla!:Table
 
   title:string='Listado de Lineas'
 
   items: MenuItem[]=[];
   lineas: ILinea[] = []
-  ventaSel!:ILinea 
+  selLinea!:ILinea 
 
   showFilter = false
   isLoading: boolean = false
@@ -29,6 +28,8 @@ export class ListadoLineasComponent implements OnInit {
   inicialRows = 15
   txBus = ''
   debouncer: Subject<string> = new Subject() 
+
+  showForm:boolean = false
 
   headers:IHeader[]=[
     {
@@ -161,17 +162,29 @@ export class ListadoLineasComponent implements OnInit {
         error:err=>{
           this.error = true
           this.isLoading = false          
-          //console.info(error.status)
+          //console.info(err.status)
         }
       })
   }//fin-buscar()
 
   clear(table: Table) {
+    console.log(this.selLinea)
+
     table.clear();    
-    this.txBus = ''
+    this.txBus = ''    
   }
 
   filtro(){    
     this.debouncer.next(this.txBus)    
   }
+
+  onRowSelect(event:any){
+    console.log('----',event.data.nomb, '====>',this.selLinea.nomb)
+  }
+
+  onAdd(){
+    console.log('******ADD***', this.showForm)
+    this.showForm=true
+  }
+  
 }
