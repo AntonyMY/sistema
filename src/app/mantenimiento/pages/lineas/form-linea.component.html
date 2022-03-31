@@ -1,5 +1,11 @@
-<p>form-linea works!</p>
-
 <p-dialog header="Title" [(visible)]="show" (onHide)="onHide()">
-    Content
+    <ng-template pTemplate="header" >
+       <span class="font-bold"> {{ titulo }} </span>
+    </ng-template>
+    
+    Contenido
+
+    <ng-template pTemplate="footer">
+        <button pButton label="Hola"></button>
+    </ng-template>
 </p-dialog>
