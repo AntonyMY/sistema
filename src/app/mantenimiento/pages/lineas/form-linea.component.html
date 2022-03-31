@@ -1,11 +1,27 @@
-<p-dialog header="Title" [(visible)]="show" (onHide)="onHide()">
+<p-dialog header="Title" [(visible)]="show" (onHide)="onHide()"
+    [modal]="true"  [breakpoints]="{'1200px': '50vw', '640px': '100vw'}">
     <ng-template pTemplate="header" >
        <span class="font-bold"> {{ titulo }} </span>
     </ng-template>
-    
-    Contenido
+
+    <div class="card">
+        <div class="field   ">
+            <label for="codlinea" class="col-12">Codigo</label>
+            <input id="codlinea" pInputText type="text" maxlength="3" 
+                placeholder="Codigo Linea" style="text-transform:uppercase;"
+                class="inputfield col-6"
+                onfocus="this.setSelectionRange(0, this.value.length)" >
+        </div>
+        <div class="field grid">
+            <label for="nomlinea" class="col-12">Descripción</label>
+            <input id="nomlinea" pInputText  type="text" maxlength="40"  class="inputfield col-12"
+                placeholder="Descripcion Linea" style="text-transform:uppercase"
+                onfocus="this.setSelectionRange(0, this.value.length)" >
+        </div>
+    </div>
 
     <ng-template pTemplate="footer">
-        <button pButton label="Hola"></button>
+        <button pButton label="Grabar"   icon='pi pi-save' class="p-button-text"></button>
+        <button pButton label="Cancelar" icon='pi pi-times' class="p-button-text" (click)="show=false"></button>
     </ng-template>
 </p-dialog>
