@@ -10,7 +10,9 @@ import { ToolbarModule } from 'primeng/toolbar'
 import { SidebarModule } from 'primeng/sidebar';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { PanelModule } from 'primeng/panel';
-
+import { SpeedDialModule } from 'primeng/speeddial';
+import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [],  
@@ -26,6 +28,9 @@ import { PanelModule } from 'primeng/panel';
     SidebarModule,
     PanelMenuModule,
     PanelModule,
+    SpeedDialModule,
+    TooltipModule,
+    DialogModule,
   ]
 })
 export class PrimeNGModule { 

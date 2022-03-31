@@ -1,6 +1,10 @@
 .barra ::ng-deep .p-toolbar {
     background: var(--surface-a);
-    padding: 0.3rem 1rem;
+    padding: 0.3rem 1rem;    
+}
+
+.barra{
+    z-index:  100
 }
 
 .menulat ::ng-deep .p-component{

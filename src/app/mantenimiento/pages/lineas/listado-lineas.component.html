@@ -1,0 +1,92 @@
+<app-form-linea [(show)]="showForm"></app-form-linea>
+
+<div style="position: relative;" class="speeddial-linear-demo">
+    <p-speedDial className="p-button-sm" [radius]="120" (onClick)="onAdd()" 
+        direction="up-left" type="quarter-circle" [rotateAnimation]="false" buttonClassName="p-button-success">        
+    </p-speedDial>
+
+<!-- [paginator]="true" [rows]="inicialRows" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} documentos"
+    responsiveLayout="stack"
+    [rowsPerPageOptions]="[10,15,20,25,50]" 
+    (onRowUnselect)="onRowUnselect($event)"    
+-->
+
+    <p-table #tabla [value]="lineas" [loading]="isLoading" class="tablita"    
+        responsiveLayout="scroll"    
+        styleClass="p-datatable-sm p-datatable-striped "
+        (sortFunction)="customSort($event)" [customSort]="true"
+        [globalFilterFields]="['codlinea','nomb']"
+        selectionMode="single" [(selection)]="selLinea" dataKey="codlinea" (onRowSelect)="onRowSelect($event)"
+        >     
+
+        <ng-template pTemplate="caption">
+            <div class="table-header flex justify-content-between">
+                <div class="flex align-items-center">
+                    {{title}}
+                </div>            
+                <!-- <button pButton pRipple type="button" icon="pi pi-filter-fill"
+                        class="p-button-rounded ml-2" (click)="showFilter = true"></button> -->
+            </div>
+            <div class="flex mt-1" >
+                <button pButton label="Limpiar" class="p-button-outlined p-button-sm"
+                    icon="pi pi-filter-slash" (click)="clear(tabla)"></button>
+                
+                <span class="p-input-icon-left w-full ml-2">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text"
+                        [(ngModel)]="txBus" class="p-inputtext-sm w-full"
+                        (input)="filtro()" placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+        <!--*****************CABECERA*************************-->
+        <ng-template pTemplate="header">       
+            <!-- ----------------------2 Fila--------------------------------- -->
+            <tr class="text-xs">
+                <th pSortableColumn="codlinea"
+                    class="w-5rem">Codigo<p-sortIcon field="codlinea"></p-sortIcon></th>
+                <th pSortableColumn="nomb" class=""
+                    >Descripción<p-sortIcon field="nomb"></p-sortIcon></th>            
+            </tr>
+            <!-- ----------------------2 FILTRO--------------------------------- -->
+        </ng-template>
+        <!-------***********DETALLE*************************-->
+        <ng-template pTemplate="body" let-linea>
+            <tr class="text-xs font-medium " [pSelectableRow]="linea">            
+                <td class="text-center w-5rem" ><span class="p-column-title">Codigo:</span>{{ linea.codlinea }}</td>
+                <td class=""><span class="p-column-title">Descripcion:</span>                
+                    {{ linea.nomb }}
+                </td>            
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <tr class="text-xs font-bold">
+                <td class="text-right">Total:</td>            
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            Total de Documentos: {{ lineas.length }}
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!--**************Barra Lateral************-->           
+<!-- <p-sidebar [(visible)]="showFilter" position="right" [showCloseIcon]="false" 
+    #filtroBar class="fechas" styleClass="p-0" >    
+    <p-panel>
+        <ng-template pTemplate="header">
+            <span class="font-semibold text-lg">Filtros</span>
+        </ng-template>
+        
+
+        <ng-template pTemplate="footer">
+            <div>
+                <p-button label="BUSCAR" 
+                    icon="pi pi-search" styleClass=" mt-3 w-full font-bold"
+                    [loading]="isLoading" (onClick)="buscar()"></p-button>       
+            </div>            
+        </ng-template>
+    </p-panel>  
+</p-sidebar> -->
