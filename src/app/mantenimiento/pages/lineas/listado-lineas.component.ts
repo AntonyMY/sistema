@@ -16,8 +16,7 @@ export class ListadoLineasComponent implements OnInit {
   @ViewChild('tabla') tabla!:Table
 
   title:string='Listado de Lineas'
-
-  items: MenuItem[]=[];
+  
   lineas: ILinea[] = []
   selLinea!:ILinea 
 
@@ -54,43 +53,12 @@ export class ListadoLineasComponent implements OnInit {
     }
   ]
 
-  getSerDoc(vta: ILinea): string {
-    return  ' - ';
-  }
+  
 
   constructor(private mantenimientoService: MantenimientoService, 
     private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.items = [
-      {
-          icon: 'pi pi-pencil',
-          command: () => {
-              this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
-          }
-      },
-      {
-          icon: 'pi pi-refresh',
-          command: () => {
-              this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-          }
-      },
-      {
-          icon: 'pi pi-trash',
-          command: () => {
-              this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-          }
-      },
-      {
-          icon: 'pi pi-upload',
-      },
-      {
-          icon: 'pi pi-external-link',
-          url: 'http://angular.io'
-
-      }
-  ];
-    
     this.error = false
     this.isLoading = true
     this.mantenimientoService.listaLineas()
@@ -119,12 +87,7 @@ export class ListadoLineasComponent implements OnInit {
     event?.data?.sort((data1:any, data2:any) => {      
       const campo:string = event.field ?? ''
       let value1 = data1[campo];
-      let value2 = data2[campo];      
-
-      if(campo==='serdoc'){
-        value1 = this.getSerDoc(data1)
-        value2 = this.getSerDoc(data2)        
-      }
+      let value2 = data2[campo];            
       
       let result = null;
 

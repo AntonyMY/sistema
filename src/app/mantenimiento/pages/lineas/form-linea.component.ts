@@ -10,6 +10,7 @@ export class FormLineaComponent implements OnInit {
   @Output() showChange = new EventEmitter<boolean>()
 
   titulo:string='Nueva Línea'
+  mayus:RegExp = /[^a-z]/g
   
   
   constructor() { }
@@ -20,5 +21,5 @@ export class FormLineaComponent implements OnInit {
   onHide(){
     console.log('--hide --', this.show)
     this.showChange.emit(this.show)    
-  }
+  }  
 }

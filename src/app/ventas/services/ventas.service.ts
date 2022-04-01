@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { IVenta } from '../interfaces/venta.interface';
 import { Observable } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Injectable()
 export class VentasService {
 
-  private apiUrl:string = 'http://127.0.0.1:8000/api'
+  private apiUrl:string = ''
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, sharedService:SharedService) {
+      this.apiUrl = sharedService.apiUrl.value
+  }
 
   /* get params():HttpParams{
     console.log('***')

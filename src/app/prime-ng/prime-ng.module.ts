@@ -13,6 +13,7 @@ import { PanelModule } from 'primeng/panel';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
+import { KeyFilterModule } from 'primeng/keyfilter'
 
 @NgModule({
   declarations: [],  
@@ -31,6 +32,7 @@ import { DialogModule } from 'primeng/dialog';
     SpeedDialModule,
     TooltipModule,
     DialogModule,
+    KeyFilterModule,
   ]
 })
 export class PrimeNGModule { 
