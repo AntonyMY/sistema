@@ -3,11 +3,7 @@ import { Component,  EventEmitter,  Input, OnInit, Output } from '@angular/core'
 @Component({
   selector: 'app-form-linea',
   templateUrl: './form-linea.component.html',
-  styles: [`
-    :host ::ng-deep .p-dialog .p-dialog-header {
-      background-color:;
-    }
-  `]
+  styleUrls:['./form-linea.component.css'],  
 })
 export class FormLineaComponent implements OnInit {
   @Input() show:boolean = false
