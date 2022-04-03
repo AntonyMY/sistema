@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PrimeNGModule } from '../prime-ng/prime-ng.module';
 import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
 import { ListadoLineasComponent } from './pages/lineas/listado-lineas.component';
-import { MantenimientoService } from './services/mantenimiento.service';
+import { LineaService } from './services/linea.service';
 import { ArticulosComponent } from './pages/articulos/articulos.component';
 import { MessageService } from 'primeng/api';
 import { FormLineaComponent } from './pages/lineas/form-linea.component';
@@ -26,7 +26,7 @@ import { FormLineaComponent } from './pages/lineas/form-linea.component';
     MantenimientoRoutingModule,
   ],
   providers:[
-    MantenimientoService,
+    LineaService,
     MessageService,
   ]  
 })

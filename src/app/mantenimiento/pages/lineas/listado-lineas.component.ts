@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { ILinea } from '../../interfaces/linea.interface';
-import { Subject, debounceTime } from 'rxjs';
+import { Subject, debounceTime, tap } from 'rxjs';
 import { IHeader, ITipo } from '../../interfaces/otras.interface';
 import Decimal from 'decimal.js';
-import { MantenimientoService } from '../../services/mantenimiento.service';
+import { LineaService } from '../../services/linea.service';
 import { MenuItem, MessageService, SortEvent } from 'primeng/api';
 
 @Component({
@@ -15,9 +15,8 @@ import { MenuItem, MessageService, SortEvent } from 'primeng/api';
 export class ListadoLineasComponent implements OnInit {  
   @ViewChild('tabla') tabla!:Table
 
-  title:string='Listado de Lineas'
+  title:string='Listado de Lineas'  
   
-  lineas: ILinea[] = []
   selLinea!:ILinea 
 
   showFilter = false
@@ -51,19 +50,24 @@ export class ListadoLineasComponent implements OnInit {
       field:'serdoc',
       tipo:ITipo.string,
     }
-  ]
+  ]  
 
-  
+  get lineas(){
+    return this.lineaService.lineas
+  }
 
-  constructor(private mantenimientoService: MantenimientoService, 
+  constructor(private lineaService: LineaService, 
     private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.error = false
     this.isLoading = true
-    this.mantenimientoService.listaLineas()
-      .subscribe({next:lineas => {
-          this.lineas = lineas
+    //this.lineaService.loadLineas()
+
+    this.lineaService.loadLineas()
+      .subscribe({next:lineas => {    
+          console.log(this.lineaService.lineas);
+                
           this.isLoading = false   
           this.showFilter = false
           this.tabla.breakpoint="765"
@@ -74,6 +78,7 @@ export class ListadoLineasComponent implements OnInit {
           //console.info(error.status)
         }
       })
+
     //Busquedas
     this.debouncer
       .pipe(debounceTime(500))
@@ -116,9 +121,8 @@ export class ListadoLineasComponent implements OnInit {
   buscar() {    
     this.error = false
     this.isLoading = true
-    this.mantenimientoService.listaLineas()
-      .subscribe({next:lineas => {
-          this.lineas = lineas
+    this.lineaService.loadLineas()
+      .subscribe({next:lineas => {          
           this.isLoading = false   
           this.showFilter = false
         },
@@ -145,8 +149,7 @@ export class ListadoLineasComponent implements OnInit {
     console.log('----',event.data.nomb, '====>',this.selLinea.nomb)
   }
 
-  onAdd(){
-    console.log('******ADD***', this.showForm)
+  onAdd(){    
     this.showForm=true
   }
   
