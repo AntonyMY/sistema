@@ -95,7 +95,8 @@ export class ListadoLineasComponent implements OnInit {
       let value2 = data2[campo];            
       
       let result = null;
-
+      
+      //:int;align:left;visible:0
       const camposStrNum=['total', 'exo','subtotal', 'igv']      
 
       if (value1 == null && value2 != null)
