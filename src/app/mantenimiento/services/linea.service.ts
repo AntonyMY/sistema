@@ -33,9 +33,10 @@ export class LineaService {
 
 
   addLinea(linea:ILinea):Observable<ILinea>{
-    const url = `${this.apiUrl}/lineas`        
+    const url = `${this.apiUrl}/lineas`     
+       
     return this.http.post<ILinea>(url,linea).pipe(
-      tap(rpta => console.log(rpta))
+      tap(rpta => this._lineas.push(linea))
     )
   }//fin-addLinea()
 

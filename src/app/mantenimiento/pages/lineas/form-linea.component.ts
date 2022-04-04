@@ -26,10 +26,11 @@ export class FormLineaComponent implements OnInit {
 
   grabar(){
     this.lineaService.addLinea(this.reg)
-      .subscribe({next:(rpta=> console.log(rpta)),
-        error:(err)=>console.log('error', err)       
+      .subscribe({next:rpta=> {
+          this.messageService.add({severity:'success', summary:'Exito', detail:`linea «${this.reg.nomb}» creada!`})          
+        },error:
+          (err)=>console.log('error', err)       
     })
-    this.messageService.add({severity:'success', summary:'Exito', detail:'ENTER presionado!'})
   }
 
   focusNextElement () {
