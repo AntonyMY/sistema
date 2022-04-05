@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { SharedService } from 'src/app/shared/services/shared.service';
@@ -32,16 +32,35 @@ export class LineaService {
   }//fin-loadLineas()
 
 
-  addLinea(linea:ILinea):Observable<ILinea>{
-    const url = `${this.apiUrl}/lineas`     
-       
-    return this.http.post<ILinea>(url,linea).pipe(
-      tap(rpta => this._lineas.push(linea))
+  addLinea(linea:ILinea):Observable<any>{
+    const url = `${this.apiUrl}/lineas`
+
+    return this.http.post<any>(url,linea).pipe(
+      tap({next:rpta => this._lineas.push(linea),
+        error:err => console.log('Error:')
+      })
+    )
+  }//fin-addLinea()
+
+
+  editLinea(linea:ILinea, idModi:number):Observable<any>{
+    const url = `${this.apiUrl}/lineas/${idModi}`
+
+    return this.http.put<any>(url,linea).pipe(
+      tap({next:rpta => {
+          this._lineas.push(linea)
+          this._lineas = this._lineas.map(item => {
+            if (item.codlinea !== linea.codlinea) return item
+            return {...item, ...linea}
+        })
+        },
+        error:err => console.log('Error:', err)
+      })
     )
   }//fin-addLinea()
 
   /*
-   
+
 
   listaLineas():Observable<ILinea[]>{
     const url = `${this.apiUrl}/lineas`

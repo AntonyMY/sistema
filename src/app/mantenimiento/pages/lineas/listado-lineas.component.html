@@ -1,4 +1,5 @@
-<app-form-linea [(show)]="showForm"></app-form-linea>
+<app-form-linea [(show)]="showForm" [isEdit]="isEdit" 
+    [titulo]="tituloForm" [reg]="reg" ></app-form-linea>
 
 <div style="position: relative;" class="speeddial-linear-demo">
     <p-speedDial className="p-button-sm" [radius]="120" (onClick)="onAdd()" 
@@ -48,6 +49,7 @@
                     class="w-5rem">Codigo<p-sortIcon field="codlinea"></p-sortIcon></th>
                 <th pSortableColumn="nomb" class=""
                     >Descripción<p-sortIcon field="nomb"></p-sortIcon></th>            
+                <th class="w-6rem">Opción</th>            
             </tr>
             <!-- ----------------------2 FILTRO--------------------------------- -->
         </ng-template>
@@ -58,7 +60,15 @@
                 <td class=""><span class="p-column-title">Descripcion:</span>                
                     {{ linea.nomb }}
                 </td>            
-            </tr>
+                <td class="text-center w-6rem opciones" >
+                    <span class="p-column-title">Opción:</span>
+                    <button pButton pRipple icon="pi pi-pencil" (click)="onEdit(linea)"
+                        class="p-button-success p-button-rounded p-button-text p-button-sm"></button>
+                    <button pButton pRipple icon="pi pi-times"  (click)="onDel()"
+                        class="p-button-danger p-button-rounded p-button-text p-button-sm"></button>
+                    <a href=""></a>
+                </td>
+            </tr>            
         </ng-template>
         <ng-template pTemplate="footer">
             <tr class="text-xs font-bold">

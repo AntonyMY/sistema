@@ -15,8 +15,15 @@ import { MenuItem, MessageService, SortEvent } from 'primeng/api';
 export class ListadoLineasComponent implements OnInit {  
   @ViewChild('tabla') tabla!:Table
 
-  title:string='Listado de Lineas'  
+  title:string = 'Listado de Lineas'  
+  isEdit:boolean = false
   
+  tituloForm:string = ""
+  reg:ILinea={
+    codlinea : -1,
+    nomb : ''
+  }
+
   selLinea!:ILinea 
 
   showFilter = false
@@ -61,13 +68,10 @@ export class ListadoLineasComponent implements OnInit {
 
   ngOnInit(): void {
     this.error = false
-    this.isLoading = true
-    //this.lineaService.loadLineas()
+    this.isLoading = true    
 
     this.lineaService.loadLineas()
       .subscribe({next:lineas => {    
-          console.log(this.lineaService.lineas);
-                
           this.isLoading = false   
           this.showFilter = false
           this.tabla.breakpoint="765"
@@ -135,6 +139,22 @@ export class ListadoLineasComponent implements OnInit {
       })
   }//fin-buscar()
 
+  limpia(){
+    this.reg.codlinea = -1
+    this.reg.nomb = ''
+  }
+
+  onEdit(linea:ILinea){
+    this.reg = linea
+    this.isEdit = true
+    this.tituloForm = 'Editar Línea'
+    this.showForm=true
+  }
+
+  onDel(){
+
+  }
+
   clear(table: Table) {
     console.log(this.selLinea)
 
@@ -151,6 +171,9 @@ export class ListadoLineasComponent implements OnInit {
   }
 
   onAdd(){    
+    this.limpia()
+    this.isEdit = false
+    this.tituloForm = 'Nueva Línea'
     this.showForm=true
   }
   

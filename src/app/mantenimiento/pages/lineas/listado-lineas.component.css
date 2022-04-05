@@ -53,4 +53,15 @@
     height: 3.2rem;
 }
 
+.opciones ::ng-deep .p-button.p-button-icon-only.p-button-rounded{
+    height: 1.3rem;
+}
+
+.opciones ::ng-deep .p-button.p-button-icon-only{
+    width: 2rem;    
+}
+
+.opciones ::ng-deep .p-button.p-button-sm{
+    padding: 0;
+}
 

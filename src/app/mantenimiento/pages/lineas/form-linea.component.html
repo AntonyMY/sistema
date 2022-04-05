@@ -1,5 +1,6 @@
 <p-toast></p-toast>
-<p-dialog header="Title" [(visible)]="show" (onHide)="onHide()" position="top" [closable]="false"    
+<p-dialog header="Title" [(visible)]="show" (onHide)="onHide()" (onShow)="onShow()"
+    position="top" [closable]="true"
     [modal]="true"  [breakpoints]="{'2000px': '50vw', '575px': '100vw'}">
     <ng-template pTemplate="header" >
        <span class="font-bold"> {{ titulo }} </span>
@@ -11,15 +12,17 @@
             <div class="font-semibold"> <!-- class="formgrid grid font-semibold" -->
                 <div class="flex align-items-baseline flex-wrap sm:flex-nowrap">
                     <label for="nomlinea" class="">Descripción: </label>
-                    <input id="nomlinea" name="nomlinea" autofocus type="text" [(ngModel)]="reg.nomb"
-                        pInputText maxlength="40" class="inputfield w-full sm:ml-2"
-                        placeholder="Descripcion Linea" style="text-transform:uppercase" (keyup.enter)="next($event)"
-                        onfocus="this.setSelectionRange(0, this.value.length)"  >
-                </div>                
+                    <div class="w-full">
+                        <input id="nomlinea" name="nomlinea" autofocus type="text" [(ngModel)]="reg.nomb"
+                            pInputText maxlength="40" class="inputfield w-full sm:ml-2" [required]="true"
+                            placeholder="Descripcion Linea" style="text-transform:uppercase" (keyup.enter)="next($event)"
+                            onfocus="this.setSelectionRange(0, this.value.length)"  >                        
+                    </div>
+                </div>
             </div>
         </div>
         <div class="p-dialog-footer mt-2 pb-0">
-            <!-- (click)="grabar()" (keyup.enter)="vemos($event)"-->            
+            <!-- (click)="grabar()" (keyup.enter)="vemos($event)"-->
             <button pButton label="Grabar" type="button"   icon='pi pi-save' class="p-button-text"  (click)="grabar()"></button>
             <button pButton label="Cancelar" type="button" icon='pi pi-times' class="p-button-text" (click)="show=false" ></button>
         </div>
