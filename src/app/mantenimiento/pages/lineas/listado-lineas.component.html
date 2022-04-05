@@ -1,6 +1,9 @@
 <app-form-linea [(show)]="showForm" [isEdit]="isEdit" 
     [titulo]="tituloForm" [reg]="reg" ></app-form-linea>
 
+<p-confirmDialog [breakpoints]="{'2000px': '60vw', '575px': '100vw'}" icon="pi pi-exclamation-triangle"
+    [baseZIndex]="10000" rejectButtonStyleClass="p-button-text" ></p-confirmDialog>    
+
 <div style="position: relative;" class="speeddial-linear-demo">
     <p-speedDial className="p-button-sm" [radius]="120" (onClick)="onAdd()" 
         direction="up-left" type="quarter-circle" [rotateAnimation]="false" buttonClassName="p-button-success">        
@@ -64,7 +67,7 @@
                     <span class="p-column-title">Opción:</span>
                     <button pButton pRipple icon="pi pi-pencil" (click)="onEdit(linea)"
                         class="p-button-success p-button-rounded p-button-text p-button-sm"></button>
-                    <button pButton pRipple icon="pi pi-times"  (click)="onDel()"
+                    <button pButton pRipple icon="pi pi-times"  (click)="onDel(linea)"
                         class="p-button-danger p-button-rounded p-button-text p-button-sm"></button>
                     <a href=""></a>
                 </td>

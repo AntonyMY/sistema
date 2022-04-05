@@ -10,3 +10,6 @@ alter table menu add constraint fk_menu_parent
 
 -----AGREGAR PADRES de MENU-----------------------
 update menu set parent = '03-001-001-007' WHERE cod_men like '03-001-001-007-%' and LENGTH(cod_men)=18    
+
+SELECT cod_men, nom_men, estado, dias, icon, path, substr(cod_men, 0,strrpos(cod_men, '-')) as parent, title
+  FROM public.menu;

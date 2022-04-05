@@ -17,6 +17,8 @@ import { KeyFilterModule } from 'primeng/keyfilter'
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [],  
@@ -39,6 +41,11 @@ import { ToastModule } from 'primeng/toast';
     MessagesModule,
     MessageModule,
     ToastModule,
+    ConfirmDialogModule,
+    
+  ],
+  providers:[
+    ConfirmationService
   ]
 })
 export class PrimeNGModule { 

@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
+import { MenuItem, MessageService, SortEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ILinea } from '../../interfaces/linea.interface';
 import { Subject, debounceTime, tap } from 'rxjs';
 import { IHeader, ITipo } from '../../interfaces/otras.interface';
 import Decimal from 'decimal.js';
 import { LineaService } from '../../services/linea.service';
-import { MenuItem, MessageService, SortEvent } from 'primeng/api';
+
 
 @Component({
   selector: 'app-listado-lineas',
@@ -62,8 +64,8 @@ export class ListadoLineasComponent implements OnInit {
   get lineas(){
     return this.lineaService.lineas
   }
-
-  constructor(private lineaService: LineaService, 
+  /* , private confirmationService : ConfirmationService, */
+  constructor(private lineaService: LineaService,private confirmationService: ConfirmationService,
     private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -145,14 +147,19 @@ export class ListadoLineasComponent implements OnInit {
   }
 
   onEdit(linea:ILinea){
-    this.reg = linea
+    this.reg = {...linea}
     this.isEdit = true
     this.tituloForm = 'Editar Línea'
     this.showForm=true
   }
 
-  onDel(){
-
+  onDel(linea:ILinea){
+    this.confirmationService.confirm({
+      message: `Deseas eliminar la linea «${linea.nomb}»?`,
+      accept: () => {
+        
+      }
+    })
   }
 
   clear(table: Table) {
