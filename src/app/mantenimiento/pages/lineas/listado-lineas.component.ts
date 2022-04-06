@@ -158,6 +158,7 @@ export class ListadoLineasComponent implements OnInit {
       message: `Desea eliminar linea «${linea.nomb}»?`,
       header:'Eliminacion',
       icon: 'pi pi-question-circle',
+      acceptLabel: 'Si',
       accept: () => {
         this.lineaService.del(linea.codlinea)
           .subscribe({
