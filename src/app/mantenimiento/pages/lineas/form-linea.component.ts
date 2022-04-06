@@ -30,22 +30,20 @@ export class FormLineaComponent implements OnInit {
   grabar() {
     this.reg.nomb = this.reg.nomb.toUpperCase()
     if (this.isEdit) {
-      this.lineaService.editLinea(this.reg, this.idOld)
+      this.lineaService.edit(this.reg, this.idOld)
         .subscribe({
           next: rpta => {
-            this.show = false
-            this.reg.codlinea = rpta.id
+            this.show = false            
             this.messageService.add({ severity: 'success', summary: 'Modificada con exito!', detail: `linea «${this.reg.nomb}» modificada!` })
           }, error: (err) => {
             this.messageService.add({ severity: 'error', summary: 'No se pudo Modificar!', detail: err.error.mensaje })
           }
         })
     } else {
-      this.lineaService.addLinea(this.reg)
+      this.lineaService.add({...this.reg})
         .subscribe({
           next: rpta => {
-            this.show = false
-            this.reg.codlinea = rpta.id
+            this.show = false            
             this.messageService.add({ severity: 'success', summary: 'Grabar con exito!', detail: `linea «${this.reg.nomb}» creada!` })
           }, error: (err) => {
             this.messageService.add({ severity: 'error', summary: 'No se pudo Grabar!', detail: err.error.mensaje })

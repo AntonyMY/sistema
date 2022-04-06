@@ -1,10 +1,13 @@
+<!-- ***FORMULARIO DE CREACION E EDICION ****** -->
 <app-form-linea [(show)]="showForm" [isEdit]="isEdit" 
     [titulo]="tituloForm" [reg]="reg" ></app-form-linea>
 
+<!-- ***FORMULARIO DE CONFIRMACION  DE ELIMINACION ****** -->
 <p-confirmDialog [breakpoints]="{'2000px': '60vw', '575px': '100vw'}" icon="pi pi-exclamation-triangle"
     [baseZIndex]="10000" rejectButtonStyleClass="p-button-text" ></p-confirmDialog>    
 
 <div style="position: relative;" class="speeddial-linear-demo">
+    <!-- *** BOTON NUEVO ****** -->    
     <p-speedDial className="p-button-sm" [radius]="120" (onClick)="onAdd()" 
         direction="up-left" type="quarter-circle" [rotateAnimation]="false" buttonClassName="p-button-success">        
     </p-speedDial>
@@ -15,7 +18,7 @@
     [rowsPerPageOptions]="[10,15,20,25,50]" 
     (onRowUnselect)="onRowUnselect($event)"    
 -->
-
+    <!-- *** TABLA LINEAS ****** -->    
     <p-table #tabla [value]="lineas" [loading]="isLoading" class="tablita"    
         responsiveLayout="scroll"    
         styleClass="p-datatable-sm p-datatable-striped "
@@ -52,7 +55,7 @@
                     class="w-5rem">Codigo<p-sortIcon field="codlinea"></p-sortIcon></th>
                 <th pSortableColumn="nomb" class=""
                     >Descripción<p-sortIcon field="nomb"></p-sortIcon></th>            
-                <th class="w-6rem">Opción</th>            
+                <th class="w-6rem">Opción</th>                    
             </tr>
             <!-- ----------------------2 FILTRO--------------------------------- -->
         </ng-template>
@@ -73,13 +76,15 @@
                 </td>
             </tr>            
         </ng-template>
+        <!-------***********SECCION DE TOTALES*************************-->
         <ng-template pTemplate="footer">
             <tr class="text-xs font-bold">
                 <td class="text-right">Total:</td>            
             </tr>
         </ng-template>
+        <!-------***********SECCION DE RESUMENES*************************-->
         <ng-template pTemplate="summary">
-            Total de Documentos: {{ lineas.length }}
+            Total de Lineas: {{ lineas.length }}
         </ng-template>
     </p-table>
 </div>

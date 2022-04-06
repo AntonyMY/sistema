@@ -72,7 +72,7 @@ export class ListadoLineasComponent implements OnInit {
     this.error = false
     this.isLoading = true    
 
-    this.lineaService.loadLineas()
+    this.lineaService.load()
       .subscribe({next:lineas => {    
           this.isLoading = false   
           this.showFilter = false
@@ -128,7 +128,7 @@ export class ListadoLineasComponent implements OnInit {
   buscar() {    
     this.error = false
     this.isLoading = true
-    this.lineaService.loadLineas()
+    this.lineaService.load()
       .subscribe({next:lineas => {          
           this.isLoading = false   
           this.showFilter = false
@@ -155,12 +155,21 @@ export class ListadoLineasComponent implements OnInit {
 
   onDel(linea:ILinea){
     this.confirmationService.confirm({
-      message: `Deseas eliminar la linea «${linea.nomb}»?`,
+      message: `Desea eliminar linea «${linea.nomb}»?`,
+      header:'Eliminacion',
+      icon: 'pi pi-question-circle',
       accept: () => {
+        this.lineaService.del(linea.codlinea)
+          .subscribe({
+            next:rpta => this.messageService.add({severity:'info', summary:'Eliminado', detail:'Linea eliminada correctamente!'}),
+            error:err => {
+              this.messageService.add({severity:'error', summary:'No se pudo eliminar', detail: err.error.mensaje })
+            }
+          })
         
       }
     })
-  }
+  }//fin-onDel()
 
   clear(table: Table) {
     console.log(this.selLinea)
