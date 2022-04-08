@@ -21,3 +21,7 @@ body{
     z-index: 2;
     right: 8rem;
 }
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
