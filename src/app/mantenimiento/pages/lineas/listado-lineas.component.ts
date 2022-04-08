@@ -7,6 +7,7 @@ import { Subject, debounceTime, tap } from 'rxjs';
 import { IHeader, ITipo } from '../../interfaces/otras.interface';
 import Decimal from 'decimal.js';
 import { LineaService } from '../../services/linea.service';
+import { Miscela } from 'src/app/shared/utility/Miscela';
 
 
 @Component({
@@ -61,7 +62,7 @@ export class ListadoLineasComponent implements OnInit {
     }
   ]  
 
-  get lineas(){
+  get lineas(){    
     return this.lineaService.lineas
   }
   /* , private confirmationService : ConfirmationService, */

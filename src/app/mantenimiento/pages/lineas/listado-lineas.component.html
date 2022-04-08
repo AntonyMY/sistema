@@ -43,7 +43,7 @@
                 
                 <span class="p-input-icon-left w-full ml-2">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text"
+                    <input pInputText type="text" onfocus="this.setSelectionRange(0, this.value.length)"
                         [(ngModel)]="txBus" class="p-inputtext-sm w-full"
                         (input)="filtro()" placeholder="Buscar" />
                 </span>
