@@ -15,3 +15,9 @@ html, body{
 body{
     margin: 0;
 }
+.float{
+    position:fixed;
+    bottom:4rem;
+    z-index: 2;
+    right: 8rem;
+}

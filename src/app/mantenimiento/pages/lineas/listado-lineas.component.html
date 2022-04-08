@@ -8,9 +8,11 @@
 
 <div style="position: relative;" class="speeddial-linear-demo">
     <!-- *** BOTON NUEVO ****** -->    
-    <p-speedDial className="p-button-sm" [radius]="120" (onClick)="onAdd()" 
-        direction="up-left" type="quarter-circle" [rotateAnimation]="false" buttonClassName="p-button-success">        
-    </p-speedDial>
+    <div class="float">
+        <p-speedDial className="p-button-sm" [radius]="120" (onClick)="onAdd()" 
+            direction="up-left" type="quarter-circle" [rotateAnimation]="false" buttonClassName="p-button-success">        
+        </p-speedDial>
+    </div>
 
 <!-- [paginator]="true" [rows]="inicialRows" [showCurrentPageReport]="true"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} documentos"
