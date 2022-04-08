@@ -1,12 +1,17 @@
 {
   "name": "siste",
   "version": "0.0.0",
+  "engines": {
+    "node": "16.14.2", 
+    "npm": "8.5.0"
+  },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start" : "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +25,8 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "decimal.js": "^10.3.1",
+    "express": "^4.17.3",
+    "path": "^0.12.7",
     "primeflex": "^3.1.3",
     "primeicons": "^5.0.0",
     "primeng": "^13.3.0",
