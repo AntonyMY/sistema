@@ -1,33 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { MenuItem, MessageService, SortEvent } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { ILinea } from '../../interfaces/linea.interface';
-import { Subject, debounceTime, tap } from 'rxjs';
-import { IHeader, ITipo } from '../../interfaces/otras.interface';
-import Decimal from 'decimal.js';
-import { LineaService } from '../../services/linea.service';
-import { Miscela } from 'src/app/shared/utility/Miscela';
 
+import { ConfirmationService } from 'primeng/api';
+import { MessageService, SortEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { IMarca } from '../../interfaces/marca.interface';
+import { Subject, debounceTime } from 'rxjs';
+import Decimal from 'decimal.js';
+import { MarcaService } from '../../services/marca.service';
 
 @Component({
-  selector: 'app-listado-lineas',
-  templateUrl: './listado-lineas.component.html',  
-  styleUrls:['./listado-lineas.component.css']
+  selector: 'app-listado-marcas',
+  templateUrl: './listado-marcas.component.html',
+  styleUrls: ['./listado-marcas.component.css']
 })
-export class ListadoLineasComponent implements OnInit {  
+export class ListadoMarcasComponent implements OnInit {
+
   @ViewChild('tabla') tabla!:Table
 
-  title:string = 'Listado de Lineas'  
+  title:string = 'Listado de Marcas'  
   isEdit:boolean = false
   
   tituloForm:string = ""
-  reg:ILinea={
-    codlinea : -1,
+  reg: IMarca={
+    codmarca : -1,
     nomb : ''
   }
 
-  selLinea!:ILinea 
+  selMarca!:IMarca 
 
   showFilter = false
   isLoading: boolean = false
@@ -39,42 +38,21 @@ export class ListadoLineasComponent implements OnInit {
 
   showForm:boolean = false
 
-  headers:IHeader[]=[
-    {
-      header:'Todos',
-      field:'*',
-      tipo:ITipo.string,
-    },
-    {
-      header:'Tipo Documento',
-      field:'tipodoc',
-      tipo:ITipo.string,
-    },
-    {
-      header:'Serie/Número',
-      field:'serdoc',
-      tipo:ITipo.string,
-    },
-    {
-      header:'Fecha Emisión',
-      field:'serdoc',
-      tipo:ITipo.string,
-    }
-  ]  
+ 
 
-  get lineas(){    
-    return this.lineaService.lineas
+  get marcas(){    
+    return this.marcaService.marcas
   }
-  
-  constructor(private lineaService: LineaService,private confirmationService: ConfirmationService,
+  /* , private confirmationService : ConfirmationService, */
+  constructor(private marcaService: MarcaService,private confirmationService: ConfirmationService,
     private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.error = false
     this.isLoading = true    
 
-    this.lineaService.load()
-      .subscribe({next:lineas => {    
+    this.marcaService.load()
+      .subscribe({next:marcas => {    
           this.isLoading = false   
           this.showFilter = false
           this.tabla.breakpoint="765"
@@ -129,8 +107,8 @@ export class ListadoLineasComponent implements OnInit {
   buscar() {    
     this.error = false
     this.isLoading = true
-    this.lineaService.load()
-      .subscribe({next:lineas => {          
+    this.marcaService.load()
+      .subscribe({next:marcas => {          
           this.isLoading = false   
           this.showFilter = false
         },
@@ -143,25 +121,25 @@ export class ListadoLineasComponent implements OnInit {
   }//fin-buscar()
 
   limpia(){
-    this.reg.codlinea = -1
+    this.reg.codmarca = -1
     this.reg.nomb = ''
   }
 
-  onEdit(linea:ILinea){
-    this.reg = {...linea}
+  onEdit(marca:IMarca){
+    this.reg = {...marca}
     this.isEdit = true
-    this.tituloForm = 'Editar Línea'
+    this.tituloForm = 'Editar Marca'
     this.showForm=true
   }
 
-  onDel(linea:ILinea){
+  onDel(marcas:IMarca){
     this.confirmationService.confirm({
-      message: `Desea eliminar linea «${linea.nomb}»?`,
+      message: `Desea eliminar marca «${marcas.nomb}»?`,
       header:'Eliminacion',
       icon: 'pi pi-question-circle',
       acceptLabel: 'Si',
       accept: () => {
-        this.lineaService.del(linea.codlinea)
+        this.marcaService.del(marcas.codmarca)
           .subscribe({
             next:rpta => this.messageService.add({severity:'info', summary:'Eliminado', detail:'Linea eliminada correctamente!'}),
             error:err => {
@@ -174,7 +152,7 @@ export class ListadoLineasComponent implements OnInit {
   }//fin-onDel()
 
   clear(table: Table) {
-    console.log(this.selLinea)
+    console.log(this.selMarca)
 
     table.clear();    
     this.txBus = ''    
@@ -185,14 +163,14 @@ export class ListadoLineasComponent implements OnInit {
   }
 
   onRowSelect(event:any){
-    console.log('----',event.data.nomb, '====>',this.selLinea.nomb)
+    console.log('----',event.data.nomb, '====>',this.selMarca.nomb)
   }
 
   onAdd(){    
     this.limpia()
     this.isEdit = false
-    this.tituloForm = 'Nueva Línea'
+    this.tituloForm = 'Nueva Marca'
     this.showForm=true
   }
-  
+
 }

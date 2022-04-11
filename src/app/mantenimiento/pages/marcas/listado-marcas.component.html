@@ -1,0 +1,94 @@
+<!-- ***FORMULARIO DE CREACION E EDICION ****** -->
+ <app-form-marcas [(show)]="showForm" [isEdit]="isEdit" 
+    [titulo]="tituloForm" [reg]="reg" ></app-form-marcas>
+
+
+<!-- ***FORMULARIO DE CONFIRMACION  DE ELIMINACION ****** -->
+<p-confirmDialog [breakpoints]="{'2000px': '60vw', '575px': '100vw'}" icon="pi pi-exclamation-triangle"
+    [baseZIndex]="10000" rejectButtonStyleClass="p-button-text p-button-help" acceptButtonStyleClass="p-button-success" ></p-confirmDialog>    
+
+<div style="position: relative;" class="speeddial-linear-demo">
+    <!-- *** BOTON NUEVO ****** -->    
+    <div class="float">
+        <p-speedDial className="p-button-sm" [radius]="120" (onClick)="onAdd()" 
+            direction="up-left" type="quarter-circle" [rotateAnimation]="false" buttonClassName="p-button-success">        
+        </p-speedDial>
+    </div>
+
+<!-- [paginator]="true" [rows]="inicialRows" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} documentos"
+    responsiveLayout="stack"
+    [rowsPerPageOptions]="[10,15,20,25,50]" 
+    (onRowUnselect)="onRowUnselect($event)"    
+-->
+    <!-- *** TABLA LINEAS ****** -->    
+    <p-table #tabla [value]="marcas" [loading]="isLoading" class="tablita"    
+        responsiveLayout="scroll"    
+        styleClass="p-datatable-sm p-datatable-striped "
+        (sortFunction)="customSort($event)" [customSort]="true"
+        [globalFilterFields]="['codmarca','nomb']"
+        selectionMode="single" [(selection)]="selMarca" dataKey="codmarca" (onRowSelect)="onRowSelect($event)"
+        >     
+
+        <ng-template pTemplate="caption">
+            <div class="table-header flex justify-content-between">
+                <div class="flex align-items-center">
+                    {{title}} 
+                </div>            
+                <!-- <button pButton pRipple type="button" icon="pi pi-filter-fill"
+                        class="p-button-rounded ml-2" (click)="showFilter = true"></button> -->
+            </div>
+            <div class="flex mt-1" >
+                <button pButton label="" class="p-button-outlined p-button-sm"
+                    icon="pi pi-filter-slash" (click)="clear(tabla)"></button>
+                
+                <span class="p-input-icon-left w-full ml-2">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="search" onfocus="this.setSelectionRange(0, this.value.length)"
+                        [(ngModel)]="txBus" class="p-inputtext-sm w-full"
+                        (input)="filtro()" placeholder="Buscar" />
+                </span>
+            </div>
+        </ng-template>
+        <!--*****************CABECERA*************************-->
+        <ng-template pTemplate="header">       
+            <!-- ----------------------2 Fila--------------------------------- -->
+            <tr class="text-xs">
+                <th pSortableColumn="codmarca"
+                    class="w-5rem">Codigo<p-sortIcon field="codmarca"></p-sortIcon></th>
+                <th pSortableColumn="nomb" class=""
+                    >Descripción<p-sortIcon field="nomb"></p-sortIcon></th>            
+                <th class="w-6rem">Opción</th>                    
+            </tr>
+            <!-- ----------------------2 FILTRO--------------------------------- -->
+        </ng-template>
+        <!-------***********DETALLE*************************-->
+        <ng-template pTemplate="body" let-marca>
+            <tr class="text-xs font-medium " [pSelectableRow]="marca">            
+                <td class="text-center w-5rem" ><span class="p-column-title">Codigo:</span>{{ marca.codmarca }}</td>
+                <td class=""><span class="p-column-title">Descripcion:</span>                
+                    {{ marca.nomb }}
+                </td>            
+                <td class="text-center w-6rem opciones" >
+                    <span class="p-column-title">Opción:</span>
+                    <button pButton pRipple icon="pi pi-pencil" (click)="onEdit(marca)"
+                        class="p-button-success p-button-rounded p-button-text p-button-sm"></button>
+                    <button pButton pRipple icon="pi pi-times"  (click)="onDel(marca)"
+                        class="p-button-danger p-button-rounded p-button-text p-button-sm"></button>
+                    <a href=""></a>
+                </td>
+            </tr>            
+        </ng-template>
+        <!-------***********SECCION DE TOTALES*************************-->
+        <ng-template pTemplate="footer">
+            <tr class="text-xs font-bold">
+                <td class="text-right">Total:</td>            
+            </tr>
+        </ng-template>
+        <!-------***********SECCION DE RESUMENES*************************-->
+        <ng-template pTemplate="summary">
+            Total de Lineas: {{ marcas.length }}
+        </ng-template>
+    </p-table>
+</div>
+

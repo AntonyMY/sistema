@@ -1,0 +1,68 @@
+.fechas ::ng-deep .p-datepicker table{    
+     font-size: .80rem;
+ }
+ 
+ .fechas ::ng-deep .p-datepicker table td > span{    
+     width: 1.9rem;
+ }
+ 
+ .fechas ::ng-deep .p-datepicker table td{    
+     padding:.1rem
+ }
+ 
+ .fechas ::ng-deep .p-datepicker .p-link{    
+    font-size: .85rem;   
+ }
+ 
+ .fechas ::ng-deep .p-datepicker .pi{    
+    font-size: .85rem;   
+ }
+ 
+ .fechas ::ng-deep .p-datepicker .p-datepicker-header{
+     padding: 0.1rem;
+ }
+ 
+ .fechas ::ng-deep .p-calendar .p-inputtext {
+     width: 100%;
+ }
+ 
+ .fechas ::ng-deep .p-sidebar .p-sidebar-header{
+     padding: 0;
+ }
+ 
+ .fechas ::ng-deep  .p-sidebar-content{
+     padding: 0;
+ }
+ 
+ .fechas ::ng-deep .p-panel .p-panel-header{
+     background-color: var(--primary-color);
+     color: var(--primary-color-text);    
+ }
+ 
+ .tablita ::ng-deep .p-datatable .p-paginator-bottom{    
+     font-size: .85rem;
+ }
+ 
+ /* :host ::ng-deep .speeddial-linear-demo .p-speeddial-quarter-circle.p-speeddial-direction-up-left {
+     right: 1.5rem;
+     bottom: 1.5rem;
+ }*/
+ 
+ :host ::ng-deep .p-speeddial-button.p-button.p-button-icon-only{
+     width: 3.2rem;
+     height: 3.2rem;
+ } 
+ 
+ .opciones ::ng-deep .p-button.p-button-icon-only.p-button-rounded{
+     height: 1.3rem;
+ }
+ 
+ .opciones ::ng-deep .p-button.p-button-icon-only{
+     width: 2rem;    
+ }
+ 
+ .opciones ::ng-deep .p-button.p-button-sm{
+     padding: 0;
+ }
+ 
+ 

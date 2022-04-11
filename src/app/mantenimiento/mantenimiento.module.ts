@@ -10,12 +10,17 @@ import { LineaService } from './services/linea.service';
 import { ArticulosComponent } from './pages/articulos/articulos.component';
 import { MessageService } from 'primeng/api';
 import { FormLineaComponent } from './pages/lineas/form-linea.component';
+import { ListadoMarcasComponent } from './pages/marcas/listado-marcas.component';
+import { FormMarcasComponent } from './pages/marcas/form-marcas.component';
+import { MarcaService } from './services/marca.service';
 
 @NgModule({
   declarations: [
     ListadoLineasComponent,
     ArticulosComponent,
-    FormLineaComponent
+    FormLineaComponent,
+    FormMarcasComponent,
+    ListadoMarcasComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +33,7 @@ import { FormLineaComponent } from './pages/lineas/form-linea.component';
   providers:[
     LineaService,
     MessageService,
+    MarcaService
   ]  
 })
 export class MantenimientoModule { }
