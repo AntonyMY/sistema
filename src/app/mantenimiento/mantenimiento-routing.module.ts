@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'
 
 import { ArticulosComponent } from './pages/articulos/articulos.component';
+import { ListadoGrupoConceptosComponent } from './pages/grupoconceptos/listado-grupo-conceptos.component';
 import { ListadoLineasComponent } from './pages/lineas/listado-lineas.component';
 import { ListadoMarcasComponent } from './pages/marcas/listado-marcas.component';
 
@@ -17,6 +18,10 @@ const routes:Routes=[
   {    
     path:'articulos',        
     component:ArticulosComponent,    
+  },
+  {    
+    path:'grupoconceptos',        
+    component:ListadoGrupoConceptosComponent,    
   }
 ]
 

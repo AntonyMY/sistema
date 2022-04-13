@@ -17,8 +17,8 @@ export class ListadoMarcasComponent implements OnInit {
 
   @ViewChild('tabla') tabla!:Table
 
-  title:string = 'Listado de Marcas'  
-  isEdit:boolean = false
+  title:string    = 'Listado de Marcas'  
+  isEdit:boolean  = false
   
   tituloForm:string = ""
   reg: IMarca={
@@ -37,8 +37,6 @@ export class ListadoMarcasComponent implements OnInit {
   debouncer: Subject<string> = new Subject() 
 
   showForm:boolean = false
-
- 
 
   get marcas(){    
     return this.marcaService.marcas
